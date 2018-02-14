@@ -6,7 +6,38 @@ PHONE_REGEX = RegexValidator(
     regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")
 
 
-class Payer(models.Model):
+class Country(models.Model):
+    name = models.CharField('Country', max_length=75, unique=True)
+    code = models.CharField('Code', max_length=2, unique=True)
+
+
+class State(models.Model):
+    '''Nigerian States'''
+    name = models.CharField('State', max_length=75, unique=True)
+
+
+class Lga(models.Model):
+    '''Nigerian Local Government Areas'''
+    name = models.CharField('LGA', max_length=75)
+    state = models.ForeignKey(
+        State, related_name='lgas', on_delete=models.CASCADE)
+    
+    class Meta:
+        unique_together = (('name', 'state'),)
+
+
+class Address(models.Model):
+    house_no = models.CharField('House Number', max_length=75)
+    street = models.CharField('Street', max_length=75)
+    city = models.CharField('City', max_length=75)
+    ward = models.CharField('Ward', max_length=75, null=True)
+    lga = models.CharField('LGA', max_length=75)
+    state = models.CharField('State', max_length=75)
+    country = models.CharField(
+        'Country', max_length=75, choices=(), default='Nigeria')
+
+
+class TaxPayer(models.Model):
     MARITAL_STATUSE_CHOICES = (
         ('Single', 'Single'),
         ('Married', 'Married'),
@@ -15,27 +46,34 @@ class Payer(models.Model):
         ('Male', 'Male'),
         ('Female', 'Female'),
     )
+    EMPLOYMENT_STATUS_CHOICES = (
+        ('Unemployed', 'Unemployed'),
+        ('Self Employed', 'Self Employed'),
+        ('Employed', 'Employed'),
+    )
     surname = models.CharField('Surname', max_length=75)
-    firstname = models.CharField('First Name', max_length=75)
-    othername = models.CharField('Other Name', max_length=75, null=True)
-    maritalstatus = models.CharField(
+    first_name = models.CharField('First Name', max_length=75)
+    other_name = models.CharField('Other Name', max_length=75, null=True)
+    marital_status = models.CharField(
         'Marital Status', max_length=20, choices=MARITAL_STATUSE_CHOICES)
     gender = models.CharField('Gender', max_length=20, choices=GENDER_CHOICES)
     dob = models.DateField('Date of Birth')
-    jtbtin = models.CharField(
+    tin = models.CharField(
         'JTB TIN', max_length=10, unique=True, blank=True)
-    # streetid = fk
-    lgaoforigin = models.CharField('LGA', max_length=75)
-    stateoforigin = models.CharField('State of Origin', max_length=75)
+    address = models.ForeignKey(
+        Address, related_name='individual_tax_payers', on_delete=models.CASCADE)
+    lga_of_origin = models.CharField('LGA', max_length=75)
+    state_of_origin = models.CharField('State of Origin', max_length=75)
     nationality = models.CharField('Nationality', max_length=75)
-    taxpayercompany = models.CharField('Company', max_length=150)
+    tax_payer_company = models.CharField('Company', max_length=150)
     occupation = models.CharField('Occupation', max_length=75)
-    employstatus = models.CharField('Employment Status', max_length=20)
+    employment_status = models.CharField(
+        'Employment Status', max_length=20, choices=EMPLOYMENT_STATUS_CHOICES)
     phone = models.CharField('Phone', max_length=15, validators=[PHONE_REGEX])
     email = models.EmailField('Email')
 
 
-class CorporatePayer(models.Model):
+class CorporateTaxPayer(models.Model):
     COMPANY_SIZE_CHOICES = (
         ('Small', 'Small'),
         ('Medium', 'Medium'),
@@ -58,11 +96,12 @@ class CorporatePayer(models.Model):
         ('Unregistered', 'Unregistered'),
     )
     name = models.CharField('Company Name', max_length=150)
-    address = models.TextField('Company Address')
+    address = models.ForeignKey(
+        Address, related_name='corporate_tax_payers', on_delete=models.CASCADE)
     phone = models.CharField('Phone', max_length=15, validators=[PHONE_REGEX])
     email = models.EmailField('Email')
     start_date = models.DateField('Business Start Date')
-    jtbtin = models.CharField(
+    tin = models.CharField(
         'JTB TIN', max_length=10, unique=True, blank=True)
     company_size = models.CharField(
         'Company Size', max_length=20, choices=COMPANY_SIZE_CHOICES)
@@ -71,7 +110,3 @@ class CorporatePayer(models.Model):
     reg_status = models.CharField(
         'Registration Status', max_length=20, choices=REGISTRATION_STATUS_CHOICES)
     reg_no = models.CharField('Registration Number', max_length=20, null=True)
-
-
-class Street(models.Model):
-    pass
