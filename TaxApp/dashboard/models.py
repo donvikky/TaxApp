@@ -53,5 +53,25 @@ class CorporatePayer(models.Model):
         ('Private Unlimited Company', 'Private Unlimited Company'),
         ('Sole Proprietorship', 'Sole Proprietorship'),
     )
+    REGISTRATION_STATUS_CHOICES = (
+        ('Registered', 'Registered'),
+        ('Unregistered', 'Unregistered'),
+    )
     name = models.CharField('Company Name', max_length=150)
     address = models.TextField('Company Address')
+    phone = models.CharField('Phone', max_length=15, validators=[PHONE_REGEX])
+    email = models.EmailField('Email')
+    start_date = models.DateField('Business Start Date')
+    jtbtin = models.CharField(
+        'JTB TIN', max_length=10, unique=True, blank=True)
+    company_size = models.CharField(
+        'Company Size', max_length=20, choices=COMPANY_SIZE_CHOICES)
+    ownership_type = models.CharField(
+        'Ownership Type', max_length=75, choices=OWNERSHIP_TYPE_CHOICES)
+    reg_status = models.CharField(
+        'Registration Status', max_length=20, choices=REGISTRATION_STATUS_CHOICES)
+    reg_no = models.CharField('Registration Number', max_length=20, null=True)
+
+
+class Street(models.Model):
+    pass
