@@ -1,0 +1,24 @@
+{
+  "name": "TaxApp",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:abrahamy/TaxApp.git",
+  "author": "Abraham Yusuf <aaondowasey@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "NODE_ENV=development webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "build": "NODE_ENV=production webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+  },
+  "devDependencies": {
+    "axios": "^0.17.1",
+    "eslint": "^4.17.0",
+    "eslint-config-standard": "^11.0.0-beta.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-node": "^6.0.0",
+    "eslint-plugin-promise": "^3.6.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "laravel-mix": "^2.0.0",
+    "vue": "^2.5.13",
+    "vuex": "^3.0.1"
+  }
+}
