@@ -1,5 +1,7 @@
 from django.db import models
 from django.core.validators import RegexValidator
+from django.forms import model_to_dict
+from audit_log.models.managers import AuditLog
 
 
 PHONE_REGEX = RegexValidator(
@@ -36,6 +38,14 @@ class Address(models.Model):
     country = models.CharField(
         'Country', max_length=75, choices=(), default='Nigeria')
 
+    history = AuditLog()
+
+    def __str__(self):
+        '''
+        String representation of an instance of this model
+        '''
+        return '%(house_no)s, %(street)s, %(city)s, %(ward)s, %(lga)s, %(state), %(country)s' % model_to_dict(self)
+
 
 class TaxPayer(models.Model):
     MARITAL_STATUSE_CHOICES = (
@@ -61,7 +71,7 @@ class TaxPayer(models.Model):
     tin = models.CharField(
         'JTB TIN', max_length=10, unique=True, blank=True)
     address = models.ForeignKey(
-        Address, related_name='individual_tax_payers', on_delete=models.CASCADE)
+        Address, on_delete=models.CASCADE, related_name='individual_tax_payers', null=True)
     lga_of_origin = models.CharField('LGA', max_length=75)
     state_of_origin = models.CharField('State of Origin', max_length=75)
     nationality = models.CharField('Nationality', max_length=75)
@@ -71,6 +81,9 @@ class TaxPayer(models.Model):
         'Employment Status', max_length=20, choices=EMPLOYMENT_STATUS_CHOICES)
     phone = models.CharField('Phone', max_length=15, validators=[PHONE_REGEX])
     email = models.EmailField('Email')
+    residential_address = property(lambda self: str(self.address))
+
+    history = AuditLog()
 
 
 class CorporateTaxPayer(models.Model):
@@ -97,7 +110,7 @@ class CorporateTaxPayer(models.Model):
     )
     name = models.CharField('Company Name', max_length=150)
     address = models.ForeignKey(
-        Address, related_name='corporate_tax_payers', on_delete=models.CASCADE)
+        Address, on_delete=models.CASCADE, related_name='corporate_tax_payers', null=True)
     phone = models.CharField('Phone', max_length=15, validators=[PHONE_REGEX])
     email = models.EmailField('Email')
     start_date = models.DateField('Business Start Date')
@@ -110,3 +123,6 @@ class CorporateTaxPayer(models.Model):
     reg_status = models.CharField(
         'Registration Status', max_length=20, choices=REGISTRATION_STATUS_CHOICES)
     reg_no = models.CharField('Registration Number', max_length=20, null=True)
+    company_address = property(lambda self: str(self.address))
+
+    history = AuditLog()
