@@ -26,6 +26,7 @@ class Lga(models.Model):
     
     class Meta:
         unique_together = (('name', 'state'),)
+        verbose_name = 'LGA'
 
 
 class Address(models.Model):
@@ -85,6 +86,17 @@ class TaxPayer(models.Model):
 
     history = AuditLog()
 
+    @property
+    def full_name(self):
+        name_parts = [self.first_name, self.other_name, self.surname]
+        return ' '.join([i for i in name_parts if i])
+
+    def __str__(self):
+        return '{} (TIN: {})'.format(self.full_name, self.tin or 'N/A')
+
+    class Meta:
+        verbose_name = 'Individual Tax Payer'
+
 
 class CorporateTaxPayer(models.Model):
     COMPANY_SIZE_CHOICES = (
@@ -126,3 +138,9 @@ class CorporateTaxPayer(models.Model):
     company_address = property(lambda self: str(self.address))
 
     history = AuditLog()
+
+    def __str__(self):
+        return '{} (TIN: {})'.format(self.name, self.tin or 'N/A')
+
+    class Meta:
+        verbose_name = 'Corporate Tax Payer'
