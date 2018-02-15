@@ -13,6 +13,9 @@ class Country(models.Model):
     name = models.CharField('Country', max_length=75, unique=True)
     code = models.CharField('Code', max_length=2, unique=True)
 
+    class Meta:
+        verbose_name_plural = 'Countries'
+
 
 class State(models.Model):
     '''Nigerian States'''
@@ -152,8 +155,16 @@ class ResidentialAddress(AddressBase):
 
     history = AuditLog()
 
+    class Meta:
+        verbose_name = 'Residential Address'
+        verbose_name_plural = 'Residential Addresses'
+
 
 class CompanyAddress(AddressBase):
     tax_payer = models.OneToOneField(CorporateTaxPayer, on_delete=models.CASCADE, related_name='company_address')
 
     history = AuditLog()
+
+    class Meta:
+        verbose_name = 'Company Address'
+        verbose_name_plural = 'Company Addresses'
