@@ -103,25 +103,44 @@ class CorporateTaxPayer(models.Model):
         ('Unregistered', 'Unregistered'),
     )
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='corporate_tax_payers')
-    name = models.CharField('Company Name', max_length=150)
+    name = models.CharField('Registration Name', max_length=150)
+    trade_name = models.CharField('Trade Name', max_length=150)
     phone = models.CharField('Phone', max_length=15, validators=[PHONE_REGEX])
     email = models.EmailField('Email')
-    start_date = models.DateField('Business Start Date')
     tin = models.CharField(
         'JTB TIN', max_length=10, unique=True, blank=True)
     company_size = models.CharField(
         'Company Size', max_length=20, choices=COMPANY_SIZE_CHOICES)
     ownership_type = models.CharField(
-        'Ownership Type', max_length=75, choices=OWNERSHIP_TYPE_CHOICES)
+        'Organization Type', max_length=75, choices=OWNERSHIP_TYPE_CHOICES)
     reg_status = models.CharField(
         'Registration Status', max_length=20, choices=REGISTRATION_STATUS_CHOICES)
+    reg_date = models.DateField('CAC Registration Date', null=True)
+    start_date = models.DateField('Business Start Date')
     reg_no = models.CharField('Registration Number', max_length=20, null=True)
+    line_of_business = models.CharField('Line of Business', max_length=75)
+    sector = models.CharField('Sector', max_length=75)
+    contact_name = models.CharField('Contact Name', max_length=150)
 
     def __str__(self):
         return '{} (TIN: {})'.format(self.name, self.tin or 'N/A')
 
     class Meta:
         verbose_name = 'Corporate Tax Payer'
+
+
+class IdentificationDocument(models.Model):
+    tax_payer = models.OneToOneField(
+        CorporateTaxPayer, on_delete=models.CASCADE, related_name='identification_document')
+    type = models.CharField('ID Type', max_length=75)
+    issuer = models.CharField('Issuer', max_length=75)
+    issuance_date = models.DateField('Issuance Date')
+    expiry_date = models.DateField('Expiry Date', null=True)
+
+    history = AuditLog()
+
+    class Meta:
+        verbose_name = 'Identification Document'
 
 
 class AddressBase(models.Model):
@@ -134,8 +153,6 @@ class AddressBase(models.Model):
     country = models.CharField(
         'Country', max_length=75, choices=(), default='Nigeria')
 
-    history = AuditLog()
-
     def __str__(self):
         '''
         String representation of an instance of this model
@@ -147,7 +164,21 @@ class AddressBase(models.Model):
 
 
 class Biometric(models.Model):
+    '''Biometric data of individual tax payers. Biometric fields are base64 encoded strings.'''
     tax_payer = models.OneToOneField(TaxPayer, on_delete=models.CASCADE, related_name='biometrics')
+    pic = models.TextField('Passport Photo')
+    f1 = models.TextField('Finder #1')
+    f2 = models.TextField('Finder #2')
+    f3 = models.TextField('Finder #3')
+    f4 = models.TextField('Finder #4')
+    f5 = models.TextField('Finder #5')
+    f6 = models.TextField('Finder #6')
+    f7 = models.TextField('Finder #7')
+    f8 = models.TextField('Finder #8')
+    f9 = models.TextField('Finder #9')
+    f10 = models.TextField('Finder #10')
+
+    history = AuditLog()
 
 
 class ResidentialAddress(AddressBase):
