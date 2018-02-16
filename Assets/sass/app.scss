@@ -1,5 +1,8 @@
-// Variables
-@import "variables";
-
 // Font Awesome
 // @import "~font-awesome/css/font-awesome";
+
+// import Light Bootstrap Dashboard assets
+@import '~bootstrap/dist/css/bootstrap';
+@import '~vue-notifyjs/themes/default';
+@import './lbd/light-bootstrap-dashboard';
+@import '../css/demo';

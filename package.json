@@ -11,14 +11,23 @@
   },
   "devDependencies": {
     "axios": "^0.17.1",
+    "bootstrap": "^4.0.0",
+    "chartist": "^0.11.0",
+    "es6-promise": "^4.2.4",
     "eslint": "^4.17.0",
     "eslint-config-standard": "^11.0.0-beta.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-node": "^6.0.0",
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-standard": "^3.0.1",
+    "google-maps": "^3.2.1",
     "laravel-mix": "^2.0.0",
+    "v-tooltip": "^2.0.0-rc.31",
     "vue": "^2.5.13",
+    "vue-clickaway": "^2.1.0",
+    "vue-notifyjs": "^0.4.1",
+    "vue-router": "^3.0.1",
+    "vue2-google-maps": "^0.8.6",
     "vuex": "^3.0.1"
   }
 }

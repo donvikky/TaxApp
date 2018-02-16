@@ -2,9 +2,7 @@ let mix = require('laravel-mix')
 let webpack = require('webpack')
 let process = require('process')
 
-
 mix.setPublicPath('Assets/dist/')
-
 
 mix.webpackConfig({
   plugins: [
@@ -14,7 +12,10 @@ mix.webpackConfig({
   ]
 })
 
-
 mix.js('Assets/js/app.js', 'app.js')
   .sass('Assets/sass/app.scss', 'app.css')
-  .extract(['vue', 'vuex', 'axios'])
+  .extract([
+    'vue', 'vuex', 'vue-router', 'axios', 'bootstrap', 'chartist',
+    'es6-promise', 'google-maps', 'v-tooltip', 'vue-clickaway',
+    'vue-notifyjs', 'vue2-google-maps'
+  ])
