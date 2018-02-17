@@ -11,6 +11,8 @@
   },
   "devDependencies": {
     "axios": "^0.17.1",
+    "babel-helper-vue-jsx-merge-props": "^2.0.3",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "bootstrap": "^4.0.0",
     "chartist": "^0.11.0",
     "es6-promise": "^4.2.4",
@@ -20,7 +22,9 @@
     "eslint-plugin-node": "^6.0.0",
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-standard": "^3.0.1",
+    "font-awesome": "^4.7.0",
     "google-maps": "^3.2.1",
+    "jquery": "^3.3.1",
     "laravel-mix": "^2.0.0",
     "v-tooltip": "^2.0.0-rc.31",
     "vue": "^2.5.13",

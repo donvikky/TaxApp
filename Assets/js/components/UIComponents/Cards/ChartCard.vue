@@ -13,6 +13,7 @@
 </template>
 <script>
   import Card from './Card.vue'
+  import Chartist from 'chartist'
 
   export default {
     name: 'chart-card',
@@ -124,9 +125,8 @@
         })
       }
     },
-    async mounted () {
+    mounted () {
       this.updateChartId()
-      const Chartist = await import('chartist')
       this.$Chartist = Chartist
       this.initChart()
     }
