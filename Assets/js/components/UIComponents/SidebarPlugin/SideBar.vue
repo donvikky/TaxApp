@@ -7,7 +7,7 @@
       <div class="logo">
         <a href="#" class="simple-text">
             <div class="logo-img">
-                <img src="/static/img/logo.png" alt="">
+                <img src="/static/images/logo.png" alt="">
             </div>
           {{title}}
         </a>
@@ -31,60 +31,74 @@
   </div>
 </template>
 <script>
-  import SidebarLink from './SidebarLink.vue'
+import SidebarLink from "./SidebarLink.vue";
 
-  export default {
-    components: {
-      SidebarLink
+export default {
+  components: {
+    SidebarLink
+  },
+  props: {
+    title: {
+      type: String,
+      default: "Joint Tax Board"
     },
-    props: {
-      title: {
-        type: String,
-        default: 'Vue LBD'
-      },
-      backgroundColor: {
-        type: String,
-        default: 'black',
-        validator: (value) => {
-          let acceptedValues = ['', 'blue', 'azure', 'green', 'orange', 'red', 'purple', 'black']
-          return acceptedValues.indexOf(value) !== -1
-        }
-      },
-      backgroundImage: {
-        type: String,
-        default: '/static/img/sidebar.jpg'
-      },
-      activeColor: {
-        type: String,
-        default: 'success',
-        validator: (value) => {
-          let acceptedValues = ['primary', 'info', 'success', 'warning', 'danger']
-          return acceptedValues.indexOf(value) !== -1
-        }
-      },
-      sidebarLinks: {
-        type: Array,
-        default: () => []
-      },
-      autoClose: {
-        type: Boolean,
-        default: true
+    backgroundColor: {
+      type: String,
+      default: "black",
+      validator: value => {
+        let acceptedValues = [
+          "",
+          "blue",
+          "azure",
+          "green",
+          "orange",
+          "red",
+          "purple",
+          "black"
+        ];
+        return acceptedValues.indexOf(value) !== -1;
       }
     },
-    provide () {
+    backgroundImage: {
+      type: String,
+      default: "/static/images/sidebar.jpg"
+    },
+    activeColor: {
+      type: String,
+      default: "success",
+      validator: value => {
+        let acceptedValues = [
+          "primary",
+          "info",
+          "success",
+          "warning",
+          "danger"
+        ];
+        return acceptedValues.indexOf(value) !== -1;
+      }
+    },
+    sidebarLinks: {
+      type: Array,
+      default: () => []
+    },
+    autoClose: {
+      type: Boolean,
+      default: true
+    }
+  },
+  provide() {
+    return {
+      autoClose: this.autoClose
+    };
+  },
+  computed: {
+    sidebarStyle() {
       return {
-        autoClose: this.autoClose
-      }
-    },
-    computed: {
-      sidebarStyle () {
-        return {
-          backgroundImage: `url(${this.backgroundImage})`
-        }
-      }
+        backgroundImage: `url(${this.backgroundImage})`
+      };
     }
   }
-
+};
 </script>
 <style>
 
