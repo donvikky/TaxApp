@@ -6,22 +6,18 @@ import NotFound from '../components/GeneralViews/NotFoundPage.vue'
 // Dashboard Pages
 import Overview from '../components/Dashboard/Views/Overview.vue'
 import UserProfile from '../components/Dashboard/Views/UserProfile.vue'
-import TableList from '../components/Dashboard/Views/TableList.vue'
-import Typography from '../components/Dashboard/Views/Typography.vue'
-import Icons from '../components/Dashboard/Views/Icons.vue'
-import Maps from '../components/Dashboard/Views/Maps.vue'
-import Notifications from '../components/Dashboard/Views/Notifications.vue'
+import Typography from '../components/Dashboard/Views/Enrollment.vue'
 
 const routes = [
   {
     path: '/',
     component: DashboardLayout,
-    redirect: '/admin/overview'
+    redirect: '/dashboard/overview'
   },
   {
-    path: '/admin',
+    path: '/dashboard',
     component: DashboardLayout,
-    redirect: '/admin/overview',
+    redirect: '/dashboard/overview',
     children: [
       {
         path: 'overview',
@@ -29,34 +25,14 @@ const routes = [
         component: Overview
       },
       {
-        path: 'user',
-        name: 'User',
-        component: UserProfile
-      },
-      {
-        path: 'table-list',
-        name: 'Table List',
-        component: TableList
-      },
-      {
-        path: 'typography',
-        name: 'Typography',
+        path: 'enrollment',
+        name: 'Enrollment',
         component: Typography
       },
       {
-        path: 'icons',
-        name: 'Icons',
-        component: Icons
-      },
-      {
-        path: 'maps',
-        name: 'Maps',
-        component: Maps
-      },
-      {
-        path: 'notifications',
-        name: 'Notifications',
-        component: Notifications
+        path: 'user',
+        name: 'User',
+        component: UserProfile
       }
     ]
   },

@@ -20,7 +20,7 @@
               <i class="nc-icon nc-palette"></i>
             </a>
           </li>
-          <drop-down tag="li">
+          <!--drop-down tag="li">
             <template slot="title">
               <i class="nc-icon nc-planet"></i>
               <b class="caret"></b>
@@ -31,7 +31,7 @@
             <a class="dropdown-item" href="#">Notification 3</a>
             <a class="dropdown-item" href="#">Notification 4</a>
             <a class="dropdown-item" href="#">Another notification</a>
-          </drop-down>
+          </drop-down-->
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nc-icon nc-zoom-split"></i>
@@ -40,19 +40,9 @@
           </li>
         </ul>
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              Account
-            </a>
-          </li>
-          <drop-down title="Dropdown">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something</a>
-            <div class="divider"></div>
-            <a class="dropdown-item" href="#">Separated link</a>
+          <drop-down title="TIN Enrollment">
+            <a class="dropdown-item" href="#">Individual</a>
+            <a class="dropdown-item" href="#">Corporate</a>
           </drop-down>
           <li class="nav-item">
             <a href="#" class="nav-link">
