@@ -18,10 +18,11 @@ mix.js('Assets/js/app.js', 'app.js')
   .sass('Assets/sass/app.scss', 'app.css')
   .copyDirectory('Assets/images', assetPublishPath + '/images')
   .autoload({
-    jquery: ['$', 'window.jQuery', 'window.jquery']
+    jquery: ['$', 'window.jQuery', 'window.jquery'],
+    'popper.js': ['Popper']
   })
   .extract([
     'vue', 'vuex', 'vue-router', 'axios', 'jquery', 'bootstrap', 'chartist',
     'es6-promise', 'google-maps', 'v-tooltip', 'vue-clickaway',
-    'vue-notifyjs', 'vue2-google-maps'
+    'vue-notifyjs', 'vue2-google-maps', 'popper.js'
   ])
