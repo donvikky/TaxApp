@@ -8,10 +8,9 @@
               <h4 class="card-title">Enrollment</h4>
               <p class="card-category">Enroll New Tax Payer</p>
             </template>
-
-            <div style="min-height=360px;">
-              <!-- content goes here -->
-            </div>
+            
+            <!-- content goes here -->
+            <individual></individual>
 
           </card>
         </div>
@@ -22,10 +21,12 @@
 </template>
 <script>
   import Card from '../../UIComponents/Cards/Card.vue'
+  import Individual from './Enrollment/Individual.vue'
 
   export default {
     components: {
-      Card
+      Card,
+      Individual
     }
   }
 
