@@ -19,7 +19,9 @@
       <top-navbar></top-navbar>
 
       <dashboard-content @click="toggleSidebar">
-
+        <slot>
+          <h1>No Content</h1>
+        </slot>
       </dashboard-content>
 
       <content-footer></content-footer>
@@ -49,5 +51,4 @@
       }
     }
   }
-
 </script>

@@ -6,7 +6,7 @@ import NotFound from '../components/GeneralViews/NotFoundPage.vue'
 // Dashboard Pages
 import Overview from '../components/Dashboard/Views/Overview.vue'
 import UserProfile from '../components/Dashboard/Views/UserProfile.vue'
-import Typography from '../components/Dashboard/Views/Enrollment.vue'
+import Enrollment from '../components/Dashboard/Views/Enrollment.vue'
 
 const routes = [
   {
@@ -27,7 +27,7 @@ const routes = [
       {
         path: 'enrollment',
         name: 'Enrollment',
-        component: Typography
+        component: Enrollment
       },
       {
         path: 'user',
