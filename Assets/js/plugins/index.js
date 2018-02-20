@@ -1,5 +1,5 @@
 import axios from 'axios'
-
+import LightBootstrapMain from './light-bootstrap-main'
 
 const installAxios = Vue => {
   document.addEventListener('DOMContentLoaded', event => {
@@ -16,7 +16,6 @@ const installAxios = Vue => {
   })
 }
 
-
 const debugMode = Vue => {
   if (process.env.NODE_ENV !== 'production') {
     Vue.config.debug = true
@@ -24,10 +23,10 @@ const debugMode = Vue => {
   }
 }
 
-
 export default {
   install (Vue) {
     installAxios(Vue)
     debugMode(Vue)
+    Vue.use(LightBootstrapMain)
   }
 }

@@ -1,10 +1,29 @@
 import Vue from 'vue'
-import components from './components'
-import CompositePlugin from './plugins'
+import VueRouter from 'vue-router'
+import App from './App.vue'
 
-Vue.use(CompositePlugin)
+// Bootstrap js
+import $ from 'jquery'
+import 'bootstrap'
 
-const app = new Vue({
+// LightBootstrap plugin
+import LightBootstrap from './plugins'
+
+// router setup
+import routes from './routes/routes'
+// plugin setup
+Vue.use(VueRouter)
+Vue.use(LightBootstrap)
+
+// configure router
+const router = new VueRouter({
+  routes, // short for routes: routes
+  linkActiveClass: 'nav-item active'
+})
+
+/* eslint-disable no-new */
+new Vue({
   el: '#app',
-  components
+  render: h => h(App),
+  router
 })

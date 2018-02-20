@@ -1,5 +1,13 @@
-// Variables
-@import "variables";
+// Fonts
+@import './lbd/css/font-awesome';
+@import './lbd/css/Roboto';
+@import './lbd/css/nucleo-icons';
 
-// Font Awesome
-// @import "~font-awesome/css/font-awesome";
+// Light Bootstrap Dashboard
+@import '~bootstrap/dist/css/bootstrap';
+@import '~vue-notifyjs/themes/default';
+@import './lbd/light-bootstrap-dashboard';
+@import './lbd/css/demo';
+
+// ChartistJs
+@import '~chartist/dist/chartist';

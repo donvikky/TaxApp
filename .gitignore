@@ -239,3 +239,5 @@ typings/
 
 # untrack laravel-mix output
 Assets/dist/
+
+static
