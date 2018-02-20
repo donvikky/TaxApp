@@ -32,7 +32,7 @@
       },
       tag: {
         type: String,
-        default: 'router-link'
+        default: 'a'
       }
     },
     methods: {

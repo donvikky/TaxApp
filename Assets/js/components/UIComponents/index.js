@@ -2,7 +2,7 @@ import Checkbox from './Inputs/Checkbox.vue'
 import Radio from './Inputs/Radio.vue'
 import FormGroupInput from './Inputs/formGroupInput.vue'
 
-import DropDown from './Dropdown.vue'
+import Dropdown from './Dropdown.vue'
 import Table from './Table.vue'
 
 import Card from './Cards/Card.vue'
@@ -19,7 +19,7 @@ let components = {
   ChartCard,
   StatsCard,
   Table,
-  DropDown,
+  Dropdown,
   SidebarPlugin
 }
 
