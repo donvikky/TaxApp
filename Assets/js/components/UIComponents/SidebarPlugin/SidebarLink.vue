@@ -12,6 +12,11 @@
   </component>
 </template>
 <script>
+/** delete later */
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+Vue.use(VueRouter)
+/** delete later end */
   export default {
     inheritAttrs: false,
     inject: {
@@ -32,7 +37,7 @@
       },
       tag: {
         type: String,
-        default: 'a'
+        default: 'router-link'
       }
     },
     methods: {
