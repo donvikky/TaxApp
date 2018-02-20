@@ -12,42 +12,42 @@
   </component>
 </template>
 <script>
-/** delete later */
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-Vue.use(VueRouter)
-/** delete later end */
-  export default {
-    inheritAttrs: false,
-    inject: {
-      autoClose: {
-        default: true
+export default {
+  inheritAttrs: false,
+  inject: {
+    autoClose: {
+      default: true
+    }
+  },
+  props: {
+    link: {
+      type: [String, Object],
+      default: () => {
+        return {
+          name: "",
+          path: "",
+          icon: ""
+        };
       }
     },
-    props: {
-      link: {
-        type: [String, Object],
-        default: () => {
-          return {
-            name: '',
-            path: '',
-            icon: ''
-          }
-        }
-      },
-      tag: {
-        type: String,
-        default: 'router-link'
-      }
-    },
-    methods: {
-      hideSidebar () {
-        if (this.autoClose && this.$sidebar && this.$sidebar.showSidebar === true) {
-          this.$sidebar.displaySidebar(false)
-        }
+    tag: {
+      type: String,
+      default: "li"
+    }
+  },
+  methods: {
+    hideSidebar() {
+      if (
+        this.autoClose &&
+        this.$sidebar &&
+        this.$sidebar.showSidebar === true
+      ) {
+        this.$sidebar.displaySidebar(false);
       }
     }
   }
+};
 </script>
 <style>
+
 </style>

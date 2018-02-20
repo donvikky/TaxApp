@@ -7,8 +7,6 @@ import 'bootstrap'
 
 Vue.use(Plugins)
 
-console.log(components)
-
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
