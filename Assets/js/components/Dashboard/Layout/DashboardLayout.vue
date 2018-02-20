@@ -37,6 +37,7 @@
   import DashboardContent from './Content.vue'
   import MobileMenu from './MobileMenu.vue'
   export default {
+    name: 'dashboard',
     components: {
       TopNavbar,
       ContentFooter,

@@ -1,32 +1,19 @@
-import axios from 'axios'
-import LightBootstrapMain from './light-bootstrap-main'
-
-const installAxios = Vue => {
-  document.addEventListener('DOMContentLoaded', event => {
-    const instance = axios.create({
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest',
-        'Accept': 'application/json',
-        'Authorization': 'Bearer token', // @todo: fetch token
-        'X-CSRF-Token': document.querySelector('meta[name="csrftoken"]').content
-      }
-    })
-
-    Object.defineProperty(Vue.prototype, '$axios', {value: instance})
-  })
-}
-
-const debugMode = Vue => {
-  if (process.env.NODE_ENV !== 'production') {
-    Vue.config.debug = true
-    Vue.config.devtools = true
-  }
-}
+import VTooltip from 'v-tooltip'
+import Notifications from 'vue-notifyjs'
+import AxiosPlugin from './axios'
+import SideBar from './sidebar'
+import DebugMode from './debug-mode'
+import Directives from './directives'
+// library auto imports
+import 'es6-promise/auto'
 
 export default {
   install (Vue) {
-    installAxios(Vue)
-    debugMode(Vue)
-    Vue.use(LightBootstrapMain)
+    Vue.use(AxiosPlugin)
+    Vue.use(DebugMode)
+    Vue.use(Directives)
+    Vue.use(Notifications)
+    Vue.use(SideBar)
+    Vue.use(VTooltip)
   }
 }
