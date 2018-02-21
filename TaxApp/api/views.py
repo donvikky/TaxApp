@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 from TaxApp.api import models
 from TaxApp.api import serializers
-from TaxApp.api import permissions
+# from TaxApp.api import permissions
 
 
 class CountryViewset(viewsets.ReadOnlyModelViewSet):
@@ -22,9 +22,6 @@ class LgaViewset(viewsets.ReadOnlyModelViewSet):
 class TaxPayerViewset(viewsets.ModelViewSet):
     queryset = models.TaxPayer.objects.all()
     serializer_class = serializers.TaxPayerSerializer
-    permission_classes = (
-        permissions.IsOwnerOrIsAdmin
-    )
 
     def perform_create(self, serializer):
         # @todo: (1) create a new user (2) create TaxPayer setting user to this user
@@ -36,9 +33,6 @@ class TaxPayerViewset(viewsets.ModelViewSet):
 class CorporateTaxPayerViewset(viewsets.ModelViewSet):
     queryset = models.CorporateTaxPayer.objects.all()
     serializer_class = serializers.CorporateTaxPayerSerializer
-    permission_classes = (
-        permissions.IsOwnerOrIsAdmin
-    )
 
     def perform_create(self, serializer):
         # @todo: see TaxPayerViewset above

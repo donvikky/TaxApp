@@ -47,7 +47,7 @@ class TaxPayer(models.Model):
         ('Self Employed', 'Self Employed'),
         ('Employed', 'Employed'),
     )
-    user = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='tax_payers')
+    # user = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='tax_payers')
     surname = models.CharField('Surname', max_length=75)
     first_name = models.CharField('First Name', max_length=75)
     other_name = models.CharField('Other Name', max_length=75, null=True)
@@ -102,7 +102,7 @@ class CorporateTaxPayer(models.Model):
         ('Registered', 'Registered'),
         ('Unregistered', 'Unregistered'),
     )
-    user = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='corporate_tax_payers')
+    # user = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='corporate_tax_payers')
     name = models.CharField('Registration Name', max_length=150)
     trade_name = models.CharField('Trade Name', max_length=150)
     phone = models.CharField('Phone', max_length=15, validators=[PHONE_REGEX])
