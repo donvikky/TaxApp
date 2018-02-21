@@ -14,5 +14,5 @@ router.register(r'states', views.StateViewset)
 router.register(r'lgas', views.LgaViewset)
 
 urlpatterns = [
-    path(r'', include(router.urls)),
+    path('', include(router.urls)),
 ]

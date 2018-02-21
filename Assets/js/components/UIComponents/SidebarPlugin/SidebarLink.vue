@@ -3,7 +3,7 @@
              @click.native="hideSidebar"
              v-bind="$attrs"
              tag="li">
-    <a class="nav-link">
+    <a class="nav-link" :href="$attrs.to">
       <slot>
         <i v-if="link.icon" :class="link.icon"></i>
         <p>{{link.name}}</p>
