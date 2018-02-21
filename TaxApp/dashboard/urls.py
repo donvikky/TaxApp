@@ -4,8 +4,8 @@ from TaxApp.dashboard import views
 
 urlpatterns = [
     path('overview/', views.overview, name='dashboard.overview'),
-    path('enrollment/individual/', views.list_individual),
-    path('enrollment/corporate/', views.list_corporate),
-    path('enrollment/individual/create', views.create_individual),
-    path('enrollment/corporate/create', views.create_corporate),
+    path('enrollment/individual/', views.TaxPayerList.as_view()),
+    path('enrollment/corporate/', views.CorporateTaxPayerList.as_view()),
+    path('enrollment/individual/create', views.TaxPayerCreate.as_view()),
+    path('enrollment/corporate/create', views.CorporateTaxPayerCreate.as_view()),
 ]
