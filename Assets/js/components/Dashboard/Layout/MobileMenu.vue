@@ -1,17 +1,5 @@
 <template>
   <ul class="nav nav-mobile-menu">
-    <!--drop-down>
-      <template slot="title">
-        <i class="fa fa-globe"></i>
-        <b class="caret"></b>
-        <span class="notification">5 Notifications</span>
-      </template>
-      <a class="dropdown-item" href="#">Notification 1</a>
-      <a class="dropdown-item" href="#">Notification 2</a>
-      <a class="dropdown-item" href="#">Notification 3</a>
-      <a class="dropdown-item" href="#">Notification 4</a>
-      <a class="dropdown-item" href="#">Another notification</a>
-    </drop-down-->
     <li class="nav-item">
       <a href="#" class="nav-link">
         <i class="nc-icon nc-zoom-split hidden-lg-up"></i>
@@ -19,8 +7,8 @@
       </a>
     </li>
     <drop-down title="TIN Enrollment">
-      <a class="dropdown-item" href="#">Individual</a>
-      <a class="dropdown-item" href="#">Corporate</a>
+      <a class="dropdown-item" href="/dashboard/enrollment/individual/">Individual</a>
+      <a class="dropdown-item" href="/dashboard/enrollment/corporate/">Corporate</a>
     </drop-down>
 
     <li class="nav-item">
@@ -31,13 +19,14 @@
   </ul>
 </template>
 <script>
-  import DropDown from '../../UIComponents/Dropdown.vue'
+import DropDown from "../../UIComponents/Dropdown.vue";
 
-  export default {
-    components: {
-      DropDown
-    }
+export default {
+  components: {
+    DropDown
   }
+};
 </script>
 <style>
+
 </style>

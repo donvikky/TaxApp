@@ -50,6 +50,11 @@ class EnrollmentView(CreateView):
 
 class TaxPayerCreate(EnrollmentView):
     model = models.TaxPayer
+    fields = (
+        'surname', 'first_name', 'other_name', 'marital_status', 'gender',
+        'dob', 'tin', 'lga_of_origin', 'state_of_origin', 'nationality',
+        'tax_payer_company', 'occupation', 'employment_status', 'phone', 'email',
+    )
     template_name = 'dashboard/individual/create.html'
 
 
