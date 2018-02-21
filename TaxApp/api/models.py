@@ -47,7 +47,6 @@ class TaxPayer(models.Model):
         ('Self Employed', 'Self Employed'),
         ('Employed', 'Employed'),
     )
-    # user = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='tax_payers')
     surname = models.CharField('Surname', max_length=75)
     first_name = models.CharField('First Name', max_length=75)
     other_name = models.CharField('Other Name', max_length=75, null=True)
@@ -55,7 +54,7 @@ class TaxPayer(models.Model):
         'Marital Status', max_length=20, choices=MARITAL_STATUSE_CHOICES)
     gender = models.CharField('Gender', max_length=20, choices=GENDER_CHOICES)
     dob = models.DateField('Date of Birth')
-    tin = models.CharField('JTB TIN', max_length=10, unique=True, blank=True)
+    tin = models.CharField('JTB TIN', max_length=10, blank=True, null=True)
     lga_of_origin = models.CharField('LGA', max_length=75)
     state_of_origin = models.CharField('State of Origin', max_length=75)
     nationality = models.CharField('Nationality', max_length=75)
@@ -102,13 +101,12 @@ class CorporateTaxPayer(models.Model):
         ('Registered', 'Registered'),
         ('Unregistered', 'Unregistered'),
     )
-    # user = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name='corporate_tax_payers')
     name = models.CharField('Registration Name', max_length=150)
     trade_name = models.CharField('Trade Name', max_length=150)
     phone = models.CharField('Phone', max_length=15, validators=[PHONE_REGEX])
     email = models.EmailField('Email')
     tin = models.CharField(
-        'JTB TIN', max_length=10, unique=True, blank=True)
+        'JTB TIN', max_length=10, blank=True, null=True)
     company_size = models.CharField(
         'Company Size', max_length=20, choices=COMPANY_SIZE_CHOICES)
     ownership_type = models.CharField(
