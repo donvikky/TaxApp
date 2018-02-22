@@ -3,7 +3,7 @@ A generic tax application
 
 ## Prerequisites
 This project uses Python and NodeJS. To develop it you must have both Python and Node interpreters installed on your computer. For instructions on installing them check [here](https://www.python.org) for Python and [here](https://nodejs.org/) for NodeJS.  
-The [yarn](https://yarnpkg.com) package manager is used. If you prefer [NPM](https://www.npmjs.com/get-npm) however, be sure to replace `yarn dev` with either `npm run dev` or `npx dev` in `package.json`.
+The [yarn](https://yarnpkg.com) package manager is used. If you prefer [NPM](https://www.npmjs.com/get-npm) however, be sure to replace `yarn dev` with either `npm run dev` or `npx dev` in `package.json`. Step 4 and 5 in the **Installation** section below should also be changed accordingly. That is, change `$ yarn` to `$ npm install` and `$ yarn start` to `$ npm run start`.
 
 ## Installation
 ```
