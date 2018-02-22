@@ -5,20 +5,13 @@
       <a href="#">
         <img class="avatar border-gray" src="/static/images/default-avatar.png" alt="..."/>
 
-        <h4 class="title">Mike Andrew<br />
-          <small>michael24</small>
+        <h4 class="title">Jack Bauer<br />
+          <small>admin</small>
         </h4>
       </a>
     </div>
-    <p class="description text-center"> "Lamborghini Mercy <br>
-      Your chick she so thirsty <br>
-      I'm in that two seat Lambo"
-    </p>
-    <div slot="footer" class="text-center">
-      <button href="#" class="btn btn-simple"><i class="fa fa-facebook-square"></i></button>
-      <button href="#" class="btn btn-simple"><i class="fa fa-twitter"></i></button>
-      <button href="#" class="btn btn-simple"><i class="fa fa-google-plus-square"></i></button>
-    </div>
+    <!--div slot="footer" class="text-center">
+    </div-->
   </card>
 </template>
 <script>

@@ -10,6 +10,10 @@ def overview(request):
     return render(request, 'dashboard/overview.html')
 
 
+def userprofile(request):
+    return render(request, 'dashboard/userprofile.html')
+
+
 class EnrollmentView(CreateView):
 
     @property
