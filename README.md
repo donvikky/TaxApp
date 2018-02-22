@@ -10,6 +10,7 @@ The [yarn](https://yarnpkg.com) package manager is used. If you prefer [NPM](htt
 $ git clone git@github.com:abrahamy/TaxApp.git
 $ cd TaxApp
 $ pip install -r requirements.txt
+$ pip install git+https://github.com/abrahamy/django-audit-log.git@e48f9e2f5e0368f5c3e66a5e4fdf9f5f0e0bd797
 $ yarn
 $ yarn start
 ```
