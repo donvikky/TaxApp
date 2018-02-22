@@ -237,5 +237,7 @@ class CompanyAddress(AddressBase):
 
 @receiver(signals.post_save, sender=TaxPayer)
 @receiver(signals.post_save, sender=CorporateTaxPayer)
-def generate_tax_identification_number(sender, **kwargs):
-    pass
+def generate_tax_identification_number(sender, instance, created, **kwargs):
+    if created:
+        instance.tin = Serial.get_next_serial()
+        instance.save()
