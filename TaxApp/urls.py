@@ -15,18 +15,20 @@ Including another URLconf
 """
 from django.conf import settings
 from django.contrib import admin
-from django.urls import path, re_path, include
+from django.urls import include, path, re_path
 from django.views.generic import RedirectView
 from TaxApp.dashboard import views
 
 urlpatterns = [
-    path('', views.index),
+    path('', RedirectView.as_view(url='/dashboard/overview/', permanent=True)),
+    path('dashboard/', include('TaxApp.dashboard.urls')),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('api/', include('TaxApp.api.urls')),
     path('admin/', admin.site.urls),
     re_path(
         '^fonts/(?P<path>.*)$',
-        RedirectView.as_view(url=settings.STATIC_URL + 'fonts/%(path)s', permanent=True),
+        RedirectView.as_view(url=settings.STATIC_URL +
+                             'fonts/%(path)s', permanent=True),
         name='fonts'
     )
 ]

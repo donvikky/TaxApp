@@ -10,7 +10,7 @@
             </template>
             
             <!-- content goes here -->
-            <individual></individual>
+            <slot></slot>
 
           </card>
         </div>

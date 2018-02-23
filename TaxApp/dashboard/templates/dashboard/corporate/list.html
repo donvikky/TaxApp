@@ -1,0 +1,64 @@
+{% extends "dashboard/dashboard.html" %} {% block page_content %}
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <a href="/dashboard/overview">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item">
+              <a href="/dashboard/enrollment/corporate/">Enrollments</a>
+            </li>
+            <li class="breadcrumb-item active" aria-current="page">Corporate</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <card>
+          <template slot="header">
+            <h4 class="card-title">Corporate Tax Payers</h4>
+            <p class="card-category"></p>
+          </template>
+
+          <!-- content goes here -->
+          <a href="/dashboard/enrollment/corporate/create" class="btn btn-sm btn-fill btn-success">Add New</a>
+
+          <table class="table table-sm table-hover">
+            <thead>
+              <tr>
+                <th>TIN</th>
+                <th>Company</th>
+                <th>Ownership Type</th>
+                <th>Size</th>
+                <th>Registration Status</th>
+                <th colspan="2">Line of Business</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for tax_payer in tax_payers %}
+              <tr>
+                <td>{{ tax_payer.tin }}</td>
+                <td>{{ tax_payer.name }}</td>
+                <td>{{ tax_payer.ownership_type }}</td>
+                <td>{{ tax_payer.company_size }}</td>
+                <td>{{ tax_payer.reg_status }}</td>
+                <td>{{ tax_payer.line_of_business }}</td>
+                <td>
+                  <button type="button" class="btn btn-sm btn-fill btn-primary">Details</button>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+          <!-- content ends -->
+
+        </card>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock page_content %}

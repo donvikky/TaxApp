@@ -41,8 +41,8 @@
         </ul>
         <ul class="navbar-nav ml-auto">
           <drop-down title="TIN Enrollment">
-            <a class="dropdown-item" href="#">Individual</a>
-            <a class="dropdown-item" href="#">Corporate</a>
+            <a class="dropdown-item" href="/dashboard/enrollment/individual/">Individual</a>
+            <a class="dropdown-item" href="/dashboard/enrollment/corporate/">Corporate</a>
           </drop-down>
           <li class="nav-item">
             <a href="#" class="nav-link">
@@ -55,37 +55,36 @@
   </nav>
 </template>
 <script>
-  export default {
-    computed: {
-      routeName () {
-        const {name} = this.$route
-        return this.capitalizeFirstLetter(name)
-      }
+export default {
+  computed: {
+    routeName() {
+      const { name } = this.$route;
+      return this.capitalizeFirstLetter(name);
+    }
+  },
+  data() {
+    return {
+      activeNotifications: false
+    };
+  },
+  methods: {
+    capitalizeFirstLetter(string) {
+      return string.charAt(0).toUpperCase() + string.slice(1);
     },
-    data () {
-      return {
-        activeNotifications: false
-      }
+    toggleNotificationDropDown() {
+      this.activeNotifications = !this.activeNotifications;
     },
-    methods: {
-      capitalizeFirstLetter (string) {
-        return string.charAt(0).toUpperCase() + string.slice(1)
-      },
-      toggleNotificationDropDown () {
-        this.activeNotifications = !this.activeNotifications
-      },
-      closeDropDown () {
-        this.activeNotifications = false
-      },
-      toggleSidebar () {
-        this.$sidebar.displaySidebar(!this.$sidebar.showSidebar)
-      },
-      hideSidebar () {
-        this.$sidebar.displaySidebar(false)
-      }
+    closeDropDown() {
+      this.activeNotifications = false;
+    },
+    toggleSidebar() {
+      this.$sidebar.displaySidebar(!this.$sidebar.showSidebar);
+    },
+    hideSidebar() {
+      this.$sidebar.displaySidebar(false);
     }
   }
-
+};
 </script>
 <style>
 

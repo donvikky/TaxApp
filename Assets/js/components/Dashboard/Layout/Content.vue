@@ -1,7 +1,6 @@
 <template>
   <transition name="fade" mode="out-in">
     <slot></slot>
-    <!--router-view></router-view-->
   </transition>
 </template>
 <script>

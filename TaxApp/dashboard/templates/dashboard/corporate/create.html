@@ -1,0 +1,96 @@
+{% extends "dashboard/dashboard.html" %}
+
+{% block page_content %}
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <card>
+          <template slot="header">
+            <h4 class="card-title">Enroll Corporate Tax Payer</h4>
+            <p class="card-category"></p>
+          </template>
+          
+          <!-- content goes here -->
+          <form action="/dashboard/enrollment/corporate/create" method="POST">
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+            <div class="alert alert-warning" role="alert">
+              {{ form.non_field_errors }}
+            </div>
+            {% endif %}
+
+            <fieldset>
+              <legend>Company Information</legend>
+              <div class="form-row">
+                {% include "dashboard/helpers/input.html" with field=form.name col='col' %}
+
+                {% include "dashboard/helpers/input.html" with field=form.trade_name col='col' %}
+
+                {% include "dashboard/helpers/input.html" with field=form.company_size col='col' %}
+              </div>
+
+              <div class="form-row">
+                {% include "dashboard/helpers/input.html" with field=form.ownership_type col='col' %}
+
+                {% include "dashboard/helpers/input.html" with field=form.reg_status col='col' %}
+
+                {% include "dashboard/helpers/input.html" with field=form.line_of_business col='col' %}
+              </div>
+
+              <div class="form-row">
+                {% include "dashboard/helpers/input.html" with field=form.sector col='col' %}
+
+                {% include "dashboard/helpers/input.html" with field=form.reg_date col='col' %}
+
+                {% include "dashboard/helpers/input.html" with field=form.start_date col='col' %}
+              </div>
+
+              <div class="form-row">
+                {% include "dashboard/helpers/input.html" with field=form.reg_no col='col-4' %}
+
+                {% include "dashboard/helpers/input.html" with field=form.contact_name col='col-8' %}
+              </div>
+
+            </fieldset>
+
+            <fieldset>
+              <legend>Business Address</legend>
+              <div class="form-row">
+                {% include "dashboard/helpers/input.html" with field=address_form.house_no col='col-4' %}
+
+                {% include "dashboard/helpers/input.html" with field=address_form.street col='col-8' %}
+              </div>
+
+              <div class="form-row">
+                {% include "dashboard/helpers/input.html" with field=address_form.city col='col' %}
+
+                {% include "dashboard/helpers/input.html" with field=address_form.ward col='col' %}
+
+                {% include "dashboard/helpers/input.html" with field=address_form.lga col='col' %}
+              </div>
+
+              <div class="form-row">
+                {% include "dashboard/helpers/input.html" with field=address_form.state col='col' %}
+
+                {% include "dashboard/helpers/input.html" with field=address_form.country col='col' %}
+
+                {% include "dashboard/helpers/input.html" with field=form.phone col='col' %}
+              </div>
+
+              <div class="form-row">
+                {% include "dashboard/helpers/input.html" with field=form.email col='col' %}
+              </div>
+            </fieldset>
+
+            <button class="btn btn-info btn-fill float-right">Submit</button>
+          </form>
+          <!-- content ends -->
+
+        </card>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock page_content %}

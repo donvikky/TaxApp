@@ -1,0 +1,20 @@
+{% load dashboard_extras %}
+{% if field.errors %}
+  <div class="form-group {% if col %}{{ col }}{% endif %} has-error">
+    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+    {{ field | css_class:'form-control' }}
+    <small class="form-text text-muted">
+      {% for error in  field.errors %}{{ error }}{% endfor %}
+    </small>
+  </div>
+{% else %}
+  <div class="form-group {% if col %}{{ col }}{% endif %}">
+    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+    {{ field | css_class:'form-control' }}
+    {% if field.help_text %}
+      <small class="form-text text-muted">
+        {{ field.help_text }}
+      </small>
+      {% endif %}
+  </div>
+{% endif %}
