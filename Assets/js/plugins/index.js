@@ -1,4 +1,3 @@
-import VTooltip from 'v-tooltip'
 import Notifications from 'vue-notifyjs'
 import AxiosPlugin from './axios'
 import SideBar from './sidebar'
@@ -16,6 +15,5 @@ export default {
     Vue.use(GlobalComponents)
     Vue.use(Notifications)
     Vue.use(SideBar)
-    Vue.use(VTooltip)
   }
 }

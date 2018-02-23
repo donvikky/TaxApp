@@ -14,7 +14,8 @@ mix.webpackConfig({
   ]
 })
 
-mix.js('Assets/js/app.js', 'app.js')
+mix
+  .js('Assets/js/app.js', 'app.js')
   .sass('Assets/sass/app.scss', 'app.css')
   .copyDirectory('Assets/images', assetPublishPath + '/images')
   .autoload({
@@ -22,7 +23,6 @@ mix.js('Assets/js/app.js', 'app.js')
     'popper.js': ['Popper']
   })
   .extract([
-    'vue', 'vuex', 'vue-router', 'axios', 'jquery', 'bootstrap', 'chartist',
-    'es6-promise', 'google-maps', 'v-tooltip', 'vue-clickaway',
-    'vue-notifyjs', 'vue2-google-maps', 'popper.js'
+    'vue', 'axios', 'jquery', 'bootstrap', 'es6-promise', 'popper.js',
+    'chartist', 'vue-clickaway', 'vue-notifyjs'
   ])
