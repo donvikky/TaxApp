@@ -74,13 +74,26 @@ class CorporateTaxPayerCreate(EnrollmentView):
     success_url = '/dashboard/enrollment/corporate/'
 
 
-class TaxPayerList(ListView):
+class PaginatedListView(ListView):
+    paginate_by = 20
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['is_paginated'] = True
+        return context
+
+    def get_paginate_by(self, queryset):
+        '''Get the number of items per page from query string'''
+        return self.request.GET.get('items', self.paginate_by)
+
+
+class TaxPayerList(PaginatedListView):
     model = models.TaxPayer
     context_object_name = 'tax_payers'
     template_name = 'dashboard/individual/list.html'
 
 
-class CorporateTaxPayerList(ListView):
+class CorporateTaxPayerList(PaginatedListView):
     model = models.CorporateTaxPayer
     context_object_name = 'tax_payers'
     template_name = 'dashboard/corporate/list.html'
