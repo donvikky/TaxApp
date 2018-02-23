@@ -1,4 +1,7 @@
+from django.conf import settings
+from django.dispatch import receiver
 from django.db import models
+from django.db.models import signals
 from django.core.validators import RegexValidator
 from django.forms import model_to_dict
 from audit_log.models.managers import AuditLog
@@ -27,10 +30,39 @@ class Lga(models.Model):
     name = models.CharField('LGA', max_length=75)
     state = models.ForeignKey(
         State, related_name='lgas', on_delete=models.CASCADE)
-    
+
     class Meta:
         unique_together = (('name', 'state'),)
         verbose_name = 'LGA'
+
+
+class Serial(models.Model):
+    '''
+    Maintains a serial counter for generating Tax Identification Numbers (TIN)
+    '''
+    next_serial = models.IntegerField()
+
+    @staticmethod
+    def create_instance():
+        '''Returns the singleton instance. Creates one if none exists.'''
+        if Serial.objects.count():
+            return Serial.objects.first()
+
+        return Serial.objects.create(next_serial=settings.JTB_NEXT_TIN or 1)
+
+    @staticmethod
+    def get_next_serial():
+        '''Get and update next serial with row locking'''
+        if not Serial.objects.count():
+            Serial.create_instance()
+
+        serial = Serial.objects.select_for_update().first()
+
+        next_serial = serial.next_serial
+        serial.next_serial += 1
+        serial.save()
+
+        return next_serial
 
 
 class TaxPayer(models.Model):
@@ -54,7 +86,8 @@ class TaxPayer(models.Model):
         'Marital Status', max_length=20, choices=MARITAL_STATUSE_CHOICES)
     gender = models.CharField('Gender', max_length=20, choices=GENDER_CHOICES)
     dob = models.DateField('Date of Birth')
-    tin = models.CharField('JTB TIN', max_length=10, blank=True, null=True)
+    tin = models.CharField('JTB TIN', max_length=10,
+                           blank=True, null=True, unique=True)
     lga_of_origin = models.CharField('LGA', max_length=75)
     state_of_origin = models.CharField('State of Origin', max_length=75)
     nationality = models.CharField('Nationality', max_length=75)
@@ -63,7 +96,7 @@ class TaxPayer(models.Model):
     employment_status = models.CharField(
         'Employment Status', max_length=20, choices=EMPLOYMENT_STATUS_CHOICES)
     phone = models.CharField('Phone', max_length=15, validators=[PHONE_REGEX])
-    email = models.EmailField('Email')
+    email = models.EmailField('Email', unique=True)
 
     history = AuditLog()
 
@@ -106,16 +139,16 @@ class CorporateTaxPayer(models.Model):
     phone = models.CharField('Phone', max_length=15, validators=[PHONE_REGEX])
     email = models.EmailField('Email')
     tin = models.CharField(
-        'JTB TIN', max_length=10, blank=True, null=True)
+        'JTB TIN', max_length=10, blank=True, null=True, unique=True)
     company_size = models.CharField(
         'Company Size', max_length=20, choices=COMPANY_SIZE_CHOICES)
     ownership_type = models.CharField(
         'Organization Type', max_length=75, choices=OWNERSHIP_TYPE_CHOICES)
     reg_status = models.CharField(
         'Registration Status', max_length=20, choices=REGISTRATION_STATUS_CHOICES)
-    reg_date = models.DateField('CAC Registration Date', null=True)
+    reg_date = models.DateField('CAC Registration Date', blank=True, null=True)
     start_date = models.DateField('Business Start Date')
-    reg_no = models.CharField('Registration Number', max_length=20, null=True)
+    reg_no = models.CharField('Registration Number', max_length=20, blank=True, null=True)
     line_of_business = models.CharField('Line of Business', max_length=75)
     sector = models.CharField('Sector', max_length=75)
     contact_name = models.CharField('Contact Name', max_length=150)
@@ -155,7 +188,8 @@ class AddressBase(models.Model):
         '''
         String representation of an instance of this model
         '''
-        return '%(house_no)s, %(street)s, %(city)s, %(ward)s, %(lga)s, %(state), %(country)s' % model_to_dict(self)
+        return ('%(house_no)s, %(street)s, %(city)s, '
+                '%(ward)s, %(lga)s, %(state), %(country)s') % model_to_dict(self)
 
     class Meta:
         abstract = True
@@ -163,7 +197,8 @@ class AddressBase(models.Model):
 
 class Biometric(models.Model):
     '''Biometric data of individual tax payers. Biometric fields are base64 encoded strings.'''
-    tax_payer = models.OneToOneField(TaxPayer, on_delete=models.CASCADE, related_name='biometrics')
+    tax_payer = models.OneToOneField(
+        TaxPayer, on_delete=models.CASCADE, related_name='biometrics')
     pic = models.TextField('Passport Photo')
     f1 = models.TextField('Finder #1')
     f2 = models.TextField('Finder #2')
@@ -180,7 +215,8 @@ class Biometric(models.Model):
 
 
 class ResidentialAddress(AddressBase):
-    tax_payer = models.OneToOneField(TaxPayer, on_delete=models.CASCADE, related_name='residential_address')
+    tax_payer = models.OneToOneField(
+        TaxPayer, on_delete=models.CASCADE, related_name='residential_address')
 
     history = AuditLog()
 
@@ -190,10 +226,27 @@ class ResidentialAddress(AddressBase):
 
 
 class CompanyAddress(AddressBase):
-    tax_payer = models.OneToOneField(CorporateTaxPayer, on_delete=models.CASCADE, related_name='company_address')
+    tax_payer = models.OneToOneField(
+        CorporateTaxPayer, on_delete=models.CASCADE, related_name='company_address')
 
     history = AuditLog()
 
     class Meta:
         verbose_name = 'Company Address'
         verbose_name_plural = 'Company Addresses'
+
+
+@receiver(signals.post_save, sender=TaxPayer)
+@receiver(signals.post_save, sender=CorporateTaxPayer)
+def generate_tax_identification_number(sender, instance, created, **kwargs):
+    if not created:
+        return
+
+    next_tin = Serial.get_next_serial()
+
+    control_digit = settings.JTB_CONTROL_DIGIT_CORPORATE
+    if isinstance(instance, TaxPayer):
+        control_digit = settings.JTB_CONTROL_DIGIT_INDIVIDUAL
+
+    instance.tin = '%09d%d' % (next_tin, control_digit)
+    instance.save()

@@ -137,3 +137,7 @@ REST_FRAMEWORK = {
         'django_filters.rest_framework.DjangoFilterBackend',
     ),
 }
+
+JTB_NEXT_TIN = 102928881
+JTB_CONTROL_DIGIT_INDIVIDUAL = 0
+JTB_CONTROL_DIGIT_CORPORATE = 1
