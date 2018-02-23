@@ -2,6 +2,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
+from django.contrib import messages
 from TaxApp.api import models
 from TaxApp.dashboard import forms
 
@@ -11,7 +12,18 @@ def overview(request):
 
 
 def userprofile(request):
-    return render(request, 'dashboard/userprofile.html')
+    user = request.user
+    form = forms.UserEditForm(user)
+
+    if request.POST:
+        form = forms.UserEditForm(user, request.POST)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'User Profile Updated!', extra_tags='alert-success')
+            return redirect(request.path)
+
+    return render(request, 'dashboard/userprofile.html', {'form': form, 'user': user})
 
 
 class EnrollmentView(CreateView):

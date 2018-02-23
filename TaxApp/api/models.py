@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.dispatch import receiver
 from django.db import models
 from django.db.models import signals
@@ -6,6 +7,8 @@ from django.core.validators import RegexValidator
 from django.forms import model_to_dict
 from audit_log.models.managers import AuditLog
 
+
+User = get_user_model()
 
 PHONE_REGEX = RegexValidator(
     regex=r'^\+?1?\d{9,15}$', message="Phone number must be entered in the format: '+999999999'. Up to 15 digits allowed.")

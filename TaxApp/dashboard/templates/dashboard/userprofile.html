@@ -1,5 +1,56 @@
 {% extends "dashboard/dashboard.html" %}
 
 {% block page_content %}
-<user-profile></user-profile>
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-8">
+        {% include "dashboard/helpers/messages.html" %}
+        <!-- Edit Profile Form -->
+        <card>
+          <h4 slot="header" class="card-title">Edit Profile</h4>
+          <form>
+            <div class="form-row">
+              {% include "dashboard/helpers/input.html" with field=form.first_name col='col' %}
+
+              {% include "dashboard/helpers/input.html" with field=form.last_name col='col' %}
+            </div>
+
+            <div class="form-row">
+              {% include "dashboard/helpers/input.html" with field=form.username col='col' %}
+              
+              {% include "dashboard/helpers/input.html" with field=form.email col='col' %}
+            </div>
+
+            <div class="form-row">
+              {% include "dashboard/helpers/input.html" with field=form.old_password col='col' %}
+            </div>
+
+            <div class="form-row">
+              {% include "dashboard/helpers/input.html" with field=form.new_password col='col' %}
+            </div>
+
+            <div class="form-row">
+              {% include "dashboard/helpers/input.html" with field=form.confirm_new_password col='col' %}
+            </div>
+
+            <div class="text-center">
+              <button type="submit" class="btn btn-info btn-fill float-right">
+                Update Profile
+              </button>
+            </div>
+            <div class="clearfix"></div>
+          </form>
+        </card>
+        <!-- Edit Profile Form ends -->
+      </div>
+      <div class="col-md-4">
+        <user-card
+          full-name="{{ user.first_name|capfirst }} {{ user.last_name|capfirst }}"
+          username="{{ user.username }}">
+        </user-card>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock page_content %}

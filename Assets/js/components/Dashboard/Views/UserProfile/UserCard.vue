@@ -5,13 +5,11 @@
       <a href="#">
         <img class="avatar border-gray" src="/static/images/default-avatar.png" alt="..."/>
 
-        <h4 class="title">Jack Bauer<br />
-          <small>admin</small>
+        <h4 class="title">{{ fullName }}<br />
+          <small>{{ username }}</small>
         </h4>
       </a>
     </div>
-    <!--div slot="footer" class="text-center">
-    </div-->
   </card>
 </template>
 <script>
@@ -20,37 +18,17 @@ export default {
   components: {
     Card
   },
-  data() {
-    return {
-      details: [
-        {
-          title: "12",
-          subTitle: "Files"
-        },
-        {
-          title: "2GB",
-          subTitle: "Used"
-        },
-        {
-          title: "24,6$",
-          subTitle: "Spent"
-        }
-      ]
-    };
-  },
-  methods: {
-    getClasses(index) {
-      var remainder = index % 3;
-      if (remainder === 0) {
-        return "col-md-3 col-md-offset-1";
-      } else if (remainder === 2) {
-        return "col-md-4";
-      } else {
-        return "col-md-3";
-      }
+  props: {
+    username: {
+      type: String,
+      required: true
+    },
+    fullName: {
+      type: String,
+      required: true
     }
   }
-};
+}
 </script>
 <style>
 
