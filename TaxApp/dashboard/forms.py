@@ -11,8 +11,8 @@ CompanyAddressForm = modelform_factory(
 
 class UserEditForm(forms.ModelForm):
     old_password = forms.CharField(label='Old Password', widget=forms.PasswordInput)
-    new_password = forms.CharField(label='New Password', widget=forms.PasswordInput)
-    confirm_new_password = forms.CharField(label='Confirm New Password', widget=forms.PasswordInput)
+    new_password = forms.CharField(label='New Password', widget=forms.PasswordInput, required=False)
+    confirm_new_password = forms.CharField(label='Confirm New Password', widget=forms.PasswordInput, required=False)
 
     def clean_old_password(self):
         old_password = self.cleaned_data.get('old_password')
@@ -46,3 +46,6 @@ class UserEditForm(forms.ModelForm):
     class Meta:
         model = models.User
         fields = ('first_name', 'last_name', 'username', 'email')
+        help_texts = {
+            'username': ''
+        }

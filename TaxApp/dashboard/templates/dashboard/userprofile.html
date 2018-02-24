@@ -5,11 +5,14 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-8">
-        {% include "helpers/messages.html" %}
         <!-- Edit Profile Form -->
         <card>
           <h4 slot="header" class="card-title">Edit Profile</h4>
-          <form>
+
+          {% include "helpers/messages.html" %}
+          
+          <form method="POST" action="{{ request.path }}">
+            {% csrf_token %}
             <div class="form-row">
               {% include "helpers/input.html" with field=form.first_name col='col' %}
 
