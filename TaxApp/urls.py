@@ -18,6 +18,7 @@ from django.urls import include, path, re_path
 from django.views.generic import RedirectView
 from django.contrib import admin
 from django.contrib.auth.views import LoginView, LogoutView
+from rest_framework.authtoken.views import obtain_auth_token
 from TaxApp.dashboard import views
 
 urlpatterns = [
@@ -27,7 +28,7 @@ urlpatterns = [
     path('accounts/logout/',
         LogoutView.as_view(next_page=settings.LOGIN_URL), name='logout'),
     path('api/', include('TaxApp.api.urls')),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('api-auth/', obtain_auth_token),
     path('admin/', admin.site.urls),
     re_path(
         '^fonts/(?P<path>.*)$',
