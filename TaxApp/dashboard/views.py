@@ -13,10 +13,10 @@ def overview(request):
 
 def userprofile(request):
     user = request.user
-    form = forms.UserEditForm(user)
+    form = forms.UserEditForm(instance=user)
 
     if request.POST:
-        form = forms.UserEditForm(user, request.POST)
+        form = forms.UserEditForm(request.POST, instance=user)
 
         if form.is_valid():
             form.save()
