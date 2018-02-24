@@ -22,8 +22,9 @@ from TaxApp.dashboard import views
 urlpatterns = [
     path('', RedirectView.as_view(url='/dashboard/overview/', permanent=True)),
     path('dashboard/', include('TaxApp.dashboard.urls')),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('accounts/', include('django.contrib.auth.urls')),
     path('api/', include('TaxApp.api.urls')),
+    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('admin/', admin.site.urls),
     re_path(
         '^fonts/(?P<path>.*)$',
