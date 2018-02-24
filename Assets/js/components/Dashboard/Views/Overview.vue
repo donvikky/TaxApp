@@ -50,7 +50,7 @@
       </div>
 
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-xl-8 col-md-6">
           <chart-card
             :chart-data="pieChart.data"
             chart-type="Pie">
@@ -71,7 +71,7 @@
           </chart-card>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-xl-4 col-md-6">
           <chart-card
             :chart-data="barChart.data"
             :chart-options="barChart.options"
