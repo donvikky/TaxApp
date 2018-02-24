@@ -13,6 +13,7 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <link rel="stylesheet" href="{% static 'app.css' %}">
+    {% block stylesheets %}{% endblock stylesheets %}
   </head>
   <body>
     <div id="app">
@@ -24,8 +25,16 @@
     <script src="{% static 'manifest.js' %}"></script>
     <script src="{% static 'vendor.js' %}"></script>
     <script src="{% static 'app.js' %}"></script>
-    {% block javascripts %}
-    
-    {% endblock javascripts %}
+    <script>
+      document.addEventListener('DOMContentLoaded', event => {
+        setTimeout(() => {
+          let elems = document.getElementsByClassName('flash-msg')
+          Array.prototype.forEach.call(elems, el => {
+            el.parentNode.removeChild(el)
+          })
+        }, 5000)
+      })
+    </script>
+    {% block javascripts %}{% endblock javascripts %}
   </body>
 </html>

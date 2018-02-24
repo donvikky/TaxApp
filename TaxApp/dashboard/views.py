@@ -2,19 +2,34 @@ from django.core.exceptions import ImproperlyConfigured
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
 from TaxApp.api import models
 from TaxApp.dashboard import forms
 
-
+@login_required
 def overview(request):
     return render(request, 'dashboard/overview.html')
 
+@login_required
+def user_profile(request):
+    user = request.user
+    form = forms.UserEditForm(instance=user)
 
-def userprofile(request):
-    return render(request, 'dashboard/userprofile.html')
+    if request.POST:
+        form = forms.UserEditForm(request.POST, instance=user)
+
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'User Profile Updated!', extra_tags='alert-success')
+            return redirect(request.path)
+
+    return render(request, 'dashboard/userprofile.html', {'form': form, 'user': user})
 
 
 class EnrollmentView(CreateView):
+    '''Base class for all enrollment create views'''
 
     @property
     def address_form_class(self):
@@ -52,7 +67,22 @@ class EnrollmentView(CreateView):
         return redirect(self.success_url)
 
 
-class TaxPayerCreate(EnrollmentView):
+class PaginatedListView(ListView):
+    '''Base class for all list views'''
+    
+    paginate_by = 20
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['is_paginated'] = True
+        return context
+
+    def get_paginate_by(self, queryset):
+        '''Get the number of items per page from query string'''
+        return self.request.GET.get('items', self.paginate_by)
+
+
+class TaxPayerCreate(LoginRequiredMixin, EnrollmentView):
     model = models.TaxPayer
     fields = (
         'surname', 'first_name', 'other_name', 'marital_status', 'gender', 'dob',
@@ -63,7 +93,7 @@ class TaxPayerCreate(EnrollmentView):
     success_url = '/dashboard/enrollment/individual/'
 
 
-class CorporateTaxPayerCreate(EnrollmentView):
+class CorporateTaxPayerCreate(LoginRequiredMixin, EnrollmentView):
     model = models.CorporateTaxPayer
     fields = (
         'name', 'trade_name', 'phone', 'email', 'company_size', 'ownership_type',
@@ -74,13 +104,13 @@ class CorporateTaxPayerCreate(EnrollmentView):
     success_url = '/dashboard/enrollment/corporate/'
 
 
-class TaxPayerList(ListView):
+class TaxPayerList(LoginRequiredMixin, PaginatedListView):
     model = models.TaxPayer
     context_object_name = 'tax_payers'
     template_name = 'dashboard/individual/list.html'
 
 
-class CorporateTaxPayerList(ListView):
+class CorporateTaxPayerList(LoginRequiredMixin, PaginatedListView):
     model = models.CorporateTaxPayer
     context_object_name = 'tax_payers'
     template_name = 'dashboard/corporate/list.html'

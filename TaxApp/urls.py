@@ -14,16 +14,21 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.conf import settings
-from django.contrib import admin
 from django.urls import include, path, re_path
 from django.views.generic import RedirectView
+from django.contrib import admin
+from django.contrib.auth.views import LoginView, LogoutView
+from rest_framework.authtoken.views import obtain_auth_token
 from TaxApp.dashboard import views
 
 urlpatterns = [
     path('', RedirectView.as_view(url='/dashboard/overview/', permanent=True)),
     path('dashboard/', include('TaxApp.dashboard.urls')),
-    path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('accounts/login/', LoginView.as_view(), name='login'),
+    path('accounts/logout/',
+        LogoutView.as_view(next_page=settings.LOGIN_URL), name='logout'),
     path('api/', include('TaxApp.api.urls')),
+    path('api-auth/', obtain_auth_token),
     path('admin/', admin.site.urls),
     re_path(
         '^fonts/(?P<path>.*)$',

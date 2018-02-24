@@ -1,13 +1,13 @@
 {
-  "name": "TaxApp",
+  "name": "tax-app",
   "version": "1.0.0",
   "main": "index.js",
   "repository": "git@github.com:abrahamy/TaxApp.git",
   "author": "Abraham Yusuf <aaondowasey@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "NODE_ENV=development webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "build": "NODE_ENV=production webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "dev": "cross-env NODE_ENV=development webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
     "start": "yarn dev && python manage.py collectstatic -c --no-input && python manage.py runserver"
   },
   "devDependencies": {
@@ -16,6 +16,7 @@
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "bootstrap": "^4.0.0",
     "chartist": "^0.11.0",
+    "cross-env": "^5.1.3",
     "es6-promise": "^4.2.4",
     "eslint": "^4.17.0",
     "eslint-config-standard": "^11.0.0-beta.0",
@@ -24,18 +25,11 @@
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-standard": "^3.0.1",
     "font-awesome": "^4.7.0",
-    "google-maps": "^3.2.1",
     "jquery": "^3.3.1",
     "laravel-mix": "^2.0.0",
-    "v-tooltip": "^2.0.0-rc.31",
+    "popper.js": "^1.12.9",
     "vue": "^2.5.13",
     "vue-clickaway": "^2.1.0",
-    "vue-notifyjs": "^0.4.1",
-    "vue-router": "^3.0.1",
-    "vue2-google-maps": "^0.8.6",
-    "vuex": "^3.0.1"
-  },
-  "dependencies": {
-    "popper.js": "^1.12.9"
+    "vue-notifyjs": "^0.4.2"
   }
 }

@@ -3,21 +3,6 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-12">
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-              <a href="/dashboard/overview">Dashboard</a>
-            </li>
-            <li class="breadcrumb-item">
-              <a href="/dashboard/enrollment/corporate/">Enrollments</a>
-            </li>
-            <li class="breadcrumb-item active" aria-current="page">Corporate</li>
-          </ol>
-        </nav>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-12">
         <card>
           <template slot="header">
             <h4 class="card-title">Corporate Tax Payers</h4>
@@ -54,6 +39,7 @@
               {% endfor %}
             </tbody>
           </table>
+          {% include "helpers/pagination.html" %}
           <!-- content ends -->
 
         </card>
