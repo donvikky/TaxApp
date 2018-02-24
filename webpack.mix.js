@@ -19,6 +19,7 @@ mix
   .sass('Assets/sass/app.scss', 'app.css')
   .copyDirectory('Assets/images', assetPublishPath + '/images')
   .autoload({
+    chartist: ['Chartist'],
     jquery: ['$', 'window.jQuery', 'window.jquery'],
     'popper.js': ['Popper']
   })
