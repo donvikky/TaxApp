@@ -20,18 +20,6 @@
               <i class="nc-icon nc-palette"></i>
             </a>
           </li>
-          <!--drop-down tag="li">
-            <template slot="title">
-              <i class="nc-icon nc-planet"></i>
-              <b class="caret"></b>
-              <span class="notification">5</span>
-            </template>
-            <a class="dropdown-item" href="#">Notification 1</a>
-            <a class="dropdown-item" href="#">Notification 2</a>
-            <a class="dropdown-item" href="#">Notification 3</a>
-            <a class="dropdown-item" href="#">Notification 4</a>
-            <a class="dropdown-item" href="#">Another notification</a>
-          </drop-down-->
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nc-icon nc-zoom-split"></i>
@@ -45,7 +33,7 @@
             <a class="dropdown-item" href="/dashboard/enrollment/corporate/">Corporate</a>
           </drop-down>
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="/accounts/logout/" class="nav-link">
               Log out
             </a>
           </li>
