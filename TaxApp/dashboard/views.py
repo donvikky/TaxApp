@@ -2,6 +2,7 @@ from django.core.exceptions import ImproperlyConfigured
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView
 from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
@@ -114,3 +115,13 @@ class CorporateTaxPayerList(LoginRequiredMixin, PaginatedListView):
     model = models.CorporateTaxPayer
     context_object_name = 'tax_payers'
     template_name = 'dashboard/corporate/list.html'
+
+
+class TaxPayerDetail(LoginRequiredMixin, DetailView):
+    model = models.TaxPayer
+    template_name = 'dashboard/individual/detail.html'
+
+
+class CorporateTaxPayerDetail(LoginRequiredMixin, DetailView):
+    model = models.CorporateTaxPayer
+    template_name = 'dashboard/corporate/detail.html'

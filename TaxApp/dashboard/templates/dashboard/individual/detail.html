@@ -1,0 +1,78 @@
+{% extends "dashboard/dashboard.html" %}
+
+{% block page_content %}
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <card>
+          <template slot="header">
+            <h4 class="card-title">Individual Tax Payer Detail</h4>
+            <p class="card-category"></p>
+          </template>
+          <!-- content goes here -->
+          <table class="table table-sm table-striped">
+            <tbody>
+              <tr>
+                <th>Tax Identification Number (TIN)</th>
+                <td colspan="3">{{ object.tin }}</td>
+              </tr>
+              <tr>
+                <th>Surname</th>
+                <td>{{ object.surname }}</td>
+                <th>Other Names</th>
+                <td>{{ object.first_name }} {{ object.other_name }}</td>
+              </tr>
+              <tr>
+                <th>Date of Birth</th>
+                <td>{{ object.dob }}</td>
+                <th>Gender</th>
+                <td>{{ object.gender }}</td>
+              </tr>
+              <tr>
+                <th>Nationality</th>
+                <td>{{ object.nationality }}</td>
+                <th>State of Origin</th>
+                <td>{{ object.state_of_origin }}</td>
+              </tr>
+              <tr>
+                <th>LGA of Origin</th>
+                <td>{{ object.lga_of_origin }}</td>
+                <th>Marrital Status</th>
+                <td>{{ object.marital_status }}</td>
+              </tr>
+              <tr>
+                <th>Occupation</th>
+                <td>{{ object.occupation }}</td>
+                <th>Employment Status</th>
+                <td>{{ object.employment_status }}</td>
+              </tr>
+              <tr>
+                <th>Employer</th>
+                <td colspan="3">{{ object.tax_payer_company }}</td>
+              </tr>
+              <tr>
+                <th>Residential Address</th>
+                <td colspan="3">{{ object.residential_address }}</td>
+              </tr>
+              <tr>
+                <th>Email</th>
+                <td>{{ object.email }}</td>
+                <th>Phone</th>
+                <td>{{ object.phone }}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="btn-group float-right" role="group" aria-label="Actions">
+            <a href="{% url 'individual_list' %}" class="btn btn-sm btn-fill btn-primary">Back</a>
+            <a href="#" class="btn btn-sm btn-fill btn-primary disabled">Print</a>
+          </div>
+
+          <!-- content ends -->
+        </card>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock page_content %}
