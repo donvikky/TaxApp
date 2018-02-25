@@ -4,7 +4,6 @@ from django.dispatch import receiver
 from django.db import models
 from django.db.models import signals
 from django.core.validators import RegexValidator
-from django.forms import model_to_dict
 from audit_log.models.managers import AuditLog
 
 
@@ -191,8 +190,10 @@ class AddressBase(models.Model):
         '''
         String representation of an instance of this model
         '''
-        return ('%(house_no)s, %(street)s, %(city)s, '
-                '%(ward)s, %(lga)s, %(state), %(country)s') % model_to_dict(self)
+        parts = [
+            self.house_no, self.street, self.city, self.ward, self.lga, self.state, self.country
+        ]
+        return ', '.join(p for p in parts if p)
 
     class Meta:
         abstract = True

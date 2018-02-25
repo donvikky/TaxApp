@@ -12,7 +12,7 @@
           </template>
           
           <!-- content goes here -->
-          <a href="/dashboard/enrollment/individual/create" class="btn btn-sm btn-fill btn-success">Add New</a>
+          <a href="{% url 'individual_create' %}" class="btn btn-sm btn-fill btn-success">Add New</a>
 
           <table class="table">
             <thead>
@@ -32,7 +32,7 @@
               <td>{{ tax_payer.employment_status }}</td>
               <td>{{ tax_payer.nationality }}</td>
               <td>
-                <button type="button" class="btn btn-sm btn-fill btn-primary">Details</button>
+                <a href="{% url 'individual_detail' tax_payer.id %}" class="btn btn-sm btn-fill btn-primary">Details</a>
               </td>
               {% endfor %}
             </tbody>

@@ -10,7 +10,7 @@
           </template>
 
           <!-- content goes here -->
-          <a href="/dashboard/enrollment/corporate/create" class="btn btn-sm btn-fill btn-success">Add New</a>
+          <a href="{% url 'corporate_create' %}" class="btn btn-sm btn-fill btn-success">Add New</a>
 
           <table class="table table-sm table-hover">
             <thead>
@@ -33,7 +33,7 @@
                 <td>{{ tax_payer.reg_status }}</td>
                 <td>{{ tax_payer.line_of_business }}</td>
                 <td>
-                  <button type="button" class="btn btn-sm btn-fill btn-primary">Details</button>
+                  <a href="{% url 'corporate_detail' tax_payer.id %}" class="btn btn-sm btn-fill btn-primary">Details</a>
                 </td>
               </tr>
               {% endfor %}
