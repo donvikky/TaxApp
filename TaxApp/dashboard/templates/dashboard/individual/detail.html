@@ -1,0 +1,79 @@
+{% extends "dashboard/dashboard.html" %}
+
+{% block page_content %}
+<div class="content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <card>
+          <template slot="header">
+            <h4 class="card-title">Individual Tax Payer Detail</h4>
+            <p class="card-category"></p>
+          </template>
+
+          <!-- content goes here -->
+          <table class="table table-sm table-striped">
+            <tbody>
+              <tr>
+                <th colspan="4" class="text-center">Personal Information</th>
+              </tr>
+              <tr>
+                <th>Tax Identification Number (TIN)</th>
+                <td colspan="3">{{ object.tin }}</td>
+              </tr>
+              <tr>
+                <th>Company</th>
+                <td>{{ object.name }}</td>
+                <th>Trade Name</th>
+                <td>{{ object.trade_name }}</td>
+              </tr>
+              <tr>
+                <th>Company Size</th>
+                <td>{{ object.company_size }}</td>
+                <th>Ownership Type</th>
+                <td>{{ object.ownership_type }}</td>
+              </tr>
+              <tr>
+                <th>Line of Business</th>
+                <td>{{ object.line_of_business }}</td>
+                <th>Business Sector</th>
+                <td>{{ object.sector }}</td>
+              </tr>
+              <tr>
+                <th>Registration Status</th>
+                <td>{{ object.reg_status }}</td>
+                <th>CAC Registration Number</th>
+                <td>{{ object.reg_no }}</td>
+              </tr>
+              <tr>
+                <th>Registration Date</th>
+                <td>{{ object.reg_date }}</td>
+                <th>Start Date</th>
+                <td>{{ object.start_date }}</td>
+              </tr>
+              <tr>
+                <th>Contact Name</th>
+                <td colspan="3">{{ object.contact_name }}</td>
+              </tr>
+              <tr>
+                <th>Business Address</th>
+                <td colspan="3">{{ object.company_address }}</td>
+              </tr>
+              <tr>
+                <th>Email</th>
+                <td>{{ object.email }}</td>
+                <th>Phone</th>
+                <td>{{ object.phone }}</td>
+              </tr>
+            </tbody>
+          </table>
+
+          <a href="{% url 'corporate_list' %}" class="btn btn-sm btn-fill btn-primary float-right">Back</a>
+          <!-- content ends -->
+
+        </card>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock page_content %}
