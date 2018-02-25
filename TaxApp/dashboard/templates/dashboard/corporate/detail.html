@@ -15,9 +15,6 @@
           <table class="table table-sm table-striped">
             <tbody>
               <tr>
-                <th colspan="4" class="text-center">Company Details</th>
-              </tr>
-              <tr>
                 <th>Tax Identification Number (TIN)</th>
                 <td colspan="3">{{ object.tin }}</td>
               </tr>
@@ -68,9 +65,12 @@
             </tbody>
           </table>
 
-          <a href="{% url 'corporate_list' %}" class="btn btn-sm btn-fill btn-primary float-right">Back</a>
-          <!-- content ends -->
+          <div class="btn-group float-right" role="group" aria-label="Actions">
+            <a href="{% url 'corporate_list' %}" class="btn btn-sm btn-fill btn-primary">Back</a>
+            <a href="#" class="btn btn-sm btn-fill btn-primary disabled">Print</a>
+          </div>
 
+          <!-- content ends -->
         </card>
       </div>
     </div>

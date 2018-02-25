@@ -17,6 +17,7 @@
           <table class="table">
             <thead>
               <tr>
+                <th>TIN</th>
                 <th>Name</th>
                 <th>Gender</th>
                 <th>Occupation</th>
@@ -26,6 +27,7 @@
             </thead>
             <tbody>
               {% for tax_payer in tax_payers %}
+              <td>{{ tax_payer.tin }}</td>
               <td>{{ tax_payer.full_name }}</td>
               <td>{{ tax_payer.gender }}</td>
               <td>{{ tax_payer.occupation }}</td>
