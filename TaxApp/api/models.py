@@ -3,7 +3,9 @@ from django.contrib.auth import get_user_model
 from django.dispatch import receiver
 from django.db import models
 from django.db.models import signals
+from django.db.models.functions import ExtractMonth
 from django.core.validators import RegexValidator
+from django.utils import timezone
 from audit_log.models.managers import AuditLog
 
 
@@ -75,7 +77,22 @@ class Serial(models.Model):
         return next_serial
 
 
-class TaxPayer(models.Model):
+class EnrollmentAnnotationMixin(object):
+    
+    @classmethod
+    def get_enrollments_per_month(cls):
+        '''Gets number of enrollments per month for one year to date'''
+        one_year_ago = timezone.now() - timezone.timedelta(days=365)
+        return cls.objects.filter(
+                    created_at__gte=one_year_ago
+                ).annotate(
+                    month=ExtractMonth('created_at')
+                ).values('month').annotate(
+                    count=models.Count('id')
+                ).values('month', 'count')
+
+
+class TaxPayer(EnrollmentAnnotationMixin, models.Model):
     MARITAL_STATUSE_CHOICES = (
         ('Single', 'Single'),
         ('Married', 'Married'),
@@ -122,9 +139,10 @@ class TaxPayer(models.Model):
 
     class Meta:
         verbose_name = 'Individual Tax Payer'
+        ordering = ('-created_at',)
 
 
-class CorporateTaxPayer(models.Model):
+class CorporateTaxPayer(EnrollmentAnnotationMixin, models.Model):
     COMPANY_SIZE_CHOICES = (
         ('Small', 'Small'),
         ('Medium', 'Medium'),
