@@ -1,7 +1,6 @@
 from rest_framework import viewsets
 from TaxApp.api import models
 from TaxApp.api import serializers
-# from TaxApp.api import permissions
 
 
 class CountryViewset(viewsets.ReadOnlyModelViewSet):
@@ -48,4 +47,16 @@ class ResidentialAddressViewset(viewsets.ModelViewSet):
 class CompanyAddressViewset(viewsets.ModelViewSet):
     queryset = models.CompanyAddress.objects.all()
     serializer_class = serializers.CompanyAddressSerializer
+    filter_fields = ('tax_payer',)
+
+
+class BiometricViewset(viewsets.ModelViewSet):
+    queryset = models.Biometric.objects.all()
+    serializer_class = serializers.BiometricSerializer
+    filter_fields = ('tax_payer',)
+
+
+class IdentificationDocumentViewset(viewsets.ModelViewSet):
+    queryset = models.IdentificationDocument.objects.all()
+    serializer_class = serializers.IdentificationDocumentSerializer
     filter_fields = ('tax_payer',)

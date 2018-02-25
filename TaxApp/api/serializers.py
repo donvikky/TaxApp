@@ -47,3 +47,15 @@ class CompanyAddressSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.CompanyAddress
         fields = get_fields(models.CompanyAddress)
+
+
+class BiometricSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Biometric
+        fields = get_fields(models.Biometric)
+
+
+class IdentificationDocumentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.IdentificationDocument
+        fields = get_fields(models.IdentificationDocument)
