@@ -35,7 +35,7 @@ class Lga(models.Model):
 
     class Meta:
         unique_together = (('name', 'state'),)
-        verbose_name = 'LGA'
+        verbose_name = 'Local Government Area'
 
 
 class Serial(models.Model):
