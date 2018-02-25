@@ -20,5 +20,5 @@ Note: The django-audit-log version on pypi (v0.7.0 at the time of writing this) 
 To run the application run `yarn start` in the project root directory. This is equivalent to running `yarn dev && python manage.py collectstatic -c --no-input && python manage.py runserver`. If using NPM refer to the explanation in **Prerequisites** above.
 
 ## Contributors
-Victor Okroboda (@donvikky)  
+Victor Okrobodo (@donvikky)  
 Abraham Yusuf (@abrahamy)
