@@ -17,6 +17,8 @@ class Country(models.Model):
     '''Countries of the world'''
     name = models.CharField('Country', max_length=75, unique=True)
     code = models.CharField('Code', max_length=2, unique=True)
+    created_at = models.DateTimeField('Created At', auto_now_add=True)
+    updated_at = models.DateTimeField('Last Modified', auto_now=True)
 
     class Meta:
         verbose_name_plural = 'Countries'
@@ -25,6 +27,8 @@ class Country(models.Model):
 class State(models.Model):
     '''Nigerian States'''
     name = models.CharField('State', max_length=75, unique=True)
+    created_at = models.DateTimeField('Created At', auto_now_add=True)
+    updated_at = models.DateTimeField('Last Modified', auto_now=True)
 
 
 class Lga(models.Model):
@@ -32,6 +36,8 @@ class Lga(models.Model):
     name = models.CharField('LGA', max_length=75)
     state = models.ForeignKey(
         State, related_name='lgas', on_delete=models.CASCADE)
+    created_at = models.DateTimeField('Created At', auto_now_add=True)
+    updated_at = models.DateTimeField('Last Modified', auto_now=True)
 
     class Meta:
         unique_together = (('name', 'state'),)
@@ -43,6 +49,8 @@ class Serial(models.Model):
     Maintains a serial counter for generating Tax Identification Numbers (TIN)
     '''
     next_serial = models.IntegerField()
+    created_at = models.DateTimeField('Created At', auto_now_add=True)
+    updated_at = models.DateTimeField('Last Modified', auto_now=True)
 
     @staticmethod
     def create_instance():
@@ -99,6 +107,8 @@ class TaxPayer(models.Model):
         'Employment Status', max_length=20, choices=EMPLOYMENT_STATUS_CHOICES)
     phone = models.CharField('Phone', max_length=15, validators=[PHONE_REGEX])
     email = models.EmailField('Email', unique=True)
+    created_at = models.DateTimeField('Created At', auto_now_add=True)
+    updated_at = models.DateTimeField('Last Modified', auto_now=True)
 
     history = AuditLog()
 
@@ -154,6 +164,8 @@ class CorporateTaxPayer(models.Model):
     line_of_business = models.CharField('Line of Business', max_length=75)
     sector = models.CharField('Sector', max_length=75)
     contact_name = models.CharField('Contact Name', max_length=150)
+    created_at = models.DateTimeField('Created At', auto_now_add=True)
+    updated_at = models.DateTimeField('Last Modified', auto_now=True)
 
     def __str__(self):
         return '{} (TIN: {})'.format(self.name, self.tin or 'N/A')
@@ -169,6 +181,8 @@ class IdentificationDocument(models.Model):
     issuer = models.CharField('Issuer', max_length=75)
     issuance_date = models.DateField('Issuance Date')
     expiry_date = models.DateField('Expiry Date', null=True)
+    created_at = models.DateTimeField('Created At', auto_now_add=True)
+    updated_at = models.DateTimeField('Last Modified', auto_now=True)
 
     history = AuditLog()
 
@@ -185,6 +199,8 @@ class AddressBase(models.Model):
     state = models.CharField('State', max_length=75)
     country = models.CharField(
         'Country', max_length=75, choices=(), default='Nigeria')
+    created_at = models.DateTimeField('Created At', auto_now_add=True)
+    updated_at = models.DateTimeField('Last Modified', auto_now=True)
 
     def __str__(self):
         '''
@@ -214,6 +230,8 @@ class Biometric(models.Model):
     f8 = models.TextField('Finder #8')
     f9 = models.TextField('Finder #9')
     f10 = models.TextField('Finder #10')
+    created_at = models.DateTimeField('Created At', auto_now_add=True)
+    updated_at = models.DateTimeField('Last Modified', auto_now=True)
 
     history = AuditLog()
 
