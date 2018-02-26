@@ -1,5 +1,6 @@
 Django==2.0.2
-git+https://github.com/abrahamy/django-audit-log.git@e48f9e2f5e0368f5c3e66a5e4fdf9f5f0e0bd797
+psycopg2-binary==2.7.4
 django-filter==1.1.0
 djangorestframework==3.7.7
 Markdown==2.6.11
+-e git+https://github.com/abrahamy/django-audit-log.git#egg=django-audit-log
