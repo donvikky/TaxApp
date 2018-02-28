@@ -137,7 +137,6 @@ export default {
   mounted() {
     this.updateChartId();
     this.$Chartist = Chartist;
-    console.log(this.$Chartist);
     this.initChart();
   }
 };

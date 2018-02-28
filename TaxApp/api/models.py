@@ -78,18 +78,18 @@ class Serial(models.Model):
 
 
 class EnrollmentAnnotationMixin(object):
-    
+
     @classmethod
     def get_enrollments_per_month(cls):
         '''Gets number of enrollments per month for one year to date'''
         one_year_ago = timezone.now() - timezone.timedelta(days=365)
         return cls.objects.filter(
-                    created_at__gte=one_year_ago
-                ).annotate(
-                    month=ExtractMonth('created_at')
-                ).values('month').annotate(
-                    count=models.Count('id')
-                ).values('month', 'count')
+            created_at__gte=one_year_ago
+        ).annotate(
+            month=ExtractMonth('created_at')
+        ).values('month').annotate(
+            count=models.Count('id')
+        ).values('month', 'count')
 
 
 class TaxPayer(EnrollmentAnnotationMixin, models.Model):
@@ -108,7 +108,8 @@ class TaxPayer(EnrollmentAnnotationMixin, models.Model):
     )
     surname = models.CharField('Surname', max_length=75)
     first_name = models.CharField('First Name', max_length=75)
-    other_name = models.CharField('Other Name', max_length=75, null=True)
+    other_name = models.CharField(
+        'Other Name', max_length=75, blank=True, null=True)
     marital_status = models.CharField(
         'Marital Status', max_length=20, choices=MARITAL_STATUSE_CHOICES)
     gender = models.CharField('Gender', max_length=20, choices=GENDER_CHOICES)
@@ -178,7 +179,8 @@ class CorporateTaxPayer(EnrollmentAnnotationMixin, models.Model):
         'Registration Status', max_length=20, choices=REGISTRATION_STATUS_CHOICES)
     reg_date = models.DateField('CAC Registration Date', blank=True, null=True)
     start_date = models.DateField('Business Start Date')
-    reg_no = models.CharField('Registration Number', max_length=20, blank=True, null=True)
+    reg_no = models.CharField('Registration Number',
+                              max_length=20, blank=True, null=True)
     line_of_business = models.CharField('Line of Business', max_length=75)
     sector = models.CharField('Sector', max_length=75)
     contact_name = models.CharField('Contact Name', max_length=150)
@@ -212,7 +214,7 @@ class AddressBase(models.Model):
     house_no = models.CharField('House Number', max_length=75)
     street = models.CharField('Street', max_length=75)
     city = models.CharField('City', max_length=75)
-    ward = models.CharField('Ward', max_length=75, null=True)
+    ward = models.CharField('Ward', max_length=75, blank=True, null=True)
     lga = models.CharField('LGA', max_length=75)
     state = models.CharField('State', max_length=75)
     country = models.CharField(

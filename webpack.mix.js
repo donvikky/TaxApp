@@ -19,11 +19,10 @@ mix
   .sass('Assets/sass/app.scss', 'app.css')
   .copyDirectory('Assets/images', assetPublishPath + '/images')
   .autoload({
-    chartist: ['Chartist'],
     jquery: ['$', 'window.jQuery', 'window.jquery'],
     'popper.js': ['Popper']
   })
   .extract([
     'vue', 'axios', 'jquery', 'bootstrap', 'es6-promise', 'popper.js',
-    'chartist', 'vue-clickaway', 'vue-notifyjs'
+    'chartist', 'vue-clickaway', 'vue-notifyjs', 'timeago.js'
   ])
