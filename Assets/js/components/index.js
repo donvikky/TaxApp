@@ -1,5 +1,4 @@
 import UIComponents from './UIComponents'
-import NotFound from './GeneralViews/NotFoundPage.vue'
 import TopNavbar from './Dashboard/Layout/TopNavbar.vue'
 import ContentFooter from './Dashboard/Layout/ContentFooter.vue'
 import DashboardContent from './Dashboard/Layout/Content.vue'
@@ -25,8 +24,6 @@ const components = {
   UserCard,
   // Enrollment
   Individual,
-  // GeneralViews
-  NotFound,
   // UI Components
   ...UIComponents
 }

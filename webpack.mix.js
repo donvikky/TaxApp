@@ -7,6 +7,12 @@ let assetPublishPath = 'Assets/dist'
 mix.setPublicPath(assetPublishPath)
 
 mix.webpackConfig({
+  resolve: {
+    alias: {
+      'vue$': 'vue/dist/vue.common.js',
+      'jquery': 'jquery/src/jquery.js'
+    }
+  },
   plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': `"${process.env.NODE_ENV}"`
@@ -24,5 +30,5 @@ mix
   })
   .extract([
     'vue', 'axios', 'jquery', 'bootstrap', 'es6-promise', 'popper.js',
-    'chartist', 'vue-clickaway', 'vue-notifyjs', 'timeago.js'
+    'vue-clickaway', 'vue-notifyjs', 'timeago.js', 'vue-morris'
   ])
