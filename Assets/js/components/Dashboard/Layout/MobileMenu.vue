@@ -12,7 +12,7 @@
     </drop-down>
 
     <li class="nav-item">
-      <a class="nav-link" href="#pablo">
+      <a class="nav-link" href="/accounts/logout/">
         <span class="no-icon">Log out</span>
       </a>
     </li>
