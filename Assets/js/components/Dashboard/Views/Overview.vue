@@ -57,11 +57,10 @@
           <div class="card">
             <div class="card-header">
               <h4 class="card-title">Enrollments</h4>
-              <p class="card-category">Monthly enrollments for last 12 months</p>
+              <p class="card-category">Monthly enrollments</p>
             </div>
             <div class="card-body">
-              <bar-chart id="bar-chart" data="chartData" xkey="month" ykeys="['individual', 'corporate']" bar-colors="['#17a2b8', '#dc3545']" grid="true" grid-text-weight="bold" resize="true">
-              </bar-chart>
+              <div id="bar-chart"></div>
             </div>
             <div class="card-footer">
               <div class="legend">
@@ -77,21 +76,20 @@
   </div>
 </template>
 <script>
-import timeago from "timeago.js";
-import BarChart from 'vue-morris/src/components/bar-chart.vue'
-import StatsCard from "../../UIComponents/Cards/StatsCard.vue";
-import Card from "../../UIComponents/Cards/Card.vue";
-import LTable from "../../UIComponents/Table.vue";
-import Checkbox from "../../UIComponents/Inputs/Checkbox.vue";
+import timeago from "timeago.js"
+import StatsCard from "../../UIComponents/Cards/StatsCard.vue"
+import Card from "../../UIComponents/Cards/Card.vue"
+import LTable from "../../UIComponents/Table.vue"
+import Checkbox from "../../UIComponents/Inputs/Checkbox.vue"
 
+require('morris.js/morris')
 
 export default {
   mounted() {
-    timeago().render(document.querySelectorAll(".timeago"));
-    console.log(this.chartData)
+    timeago().render(document.querySelectorAll(".timeago"))
+    Morris.Bar(this.options)
   },
   components: {
-    BarChart,
     Card,
     Checkbox,
     LTable,
@@ -100,11 +98,33 @@ export default {
   props: ["context"],
   data() {
     return {
-      now: new Date()
+      now: new Date(),
+      options: {
+        element: 'bar-chart',
+        data: this.getChartData(),
+        xkey: 'month',
+        ykeys: ['individual', 'corporate'],
+        labels: ['Individual', 'Corporate'],
+        barColors: ['#17a2b8', '#dc3545'],
+        grid: true,
+        gridTextWeight: 'bold',
+        resize: true
+      }
     };
   },
   computed: {
-    chartData() {
+    individualEnrollments() {
+      return this.context.counts.individual;
+    },
+    corporateEnrollments() {
+      return this.context.counts.corporate;
+    },
+    totalEnrollments() {
+      return this.individualEnrollments + this.corporateEnrollments;
+    }
+  },
+  methods: {
+    getChartData() {
       let months = [
         "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
         "Aug", "Sep", "Oct", "Nov", "Dec"
@@ -126,17 +146,6 @@ export default {
       let isPreviousYear = m => !isCurrentYear(m)
       return data.filter(isPreviousYear).concat(data.filter(isCurrentYear))
     },
-    individualEnrollments() {
-      return this.context.counts.individual;
-    },
-    corporateEnrollments() {
-      return this.context.counts.corporate;
-    },
-    totalEnrollments() {
-      return this.individualEnrollments + this.corporateEnrollments;
-    }
-  },
-  methods: {
     getCount(monthCode, individual=false) {
       let months = individual ? this.context.months.individual : this.context.months.corporate
       let count = months.filter(m => m.month === monthCode)
@@ -194,6 +203,8 @@ export default {
   }
 };
 </script>
-<style>
 
+<style lang="sass">
+@import '~morris.js/morris';
 </style>
+
