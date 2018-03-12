@@ -9,10 +9,11 @@
             </div>
             <div slot="content">
               <p class="card-category">Individuals</p>
-              <h4 class="card-title">2,087</h4>
+              <h4 class="card-title">{{ individualEnrollments }}</h4>
             </div>
             <div slot="footer">
-              <i class="fa fa-refresh"></i>Updated now
+              <i class="fa fa-refresh"></i>Updated
+              <span class="timeago" :datetime="now"></span>
             </div>
           </stats-card>
         </div>
@@ -24,10 +25,11 @@
             </div>
             <div slot="content">
               <p class="card-category">Corporates</p>
-              <h4 class="card-title">8,102</h4>
+              <h4 class="card-title">{{ corporateEnrollments }}</h4>
             </div>
             <div slot="footer">
-              <i class="fa fa-refresh"></i>Updated now
+              <i class="fa fa-refresh"></i>Updated
+              <span class="timeago" :datetime="now"></span>
             </div>
           </stats-card>
         </div>
@@ -39,10 +41,11 @@
             </div>
             <div slot="content">
               <p class="card-category">Total Enrollments</p>
-              <h4 class="card-title">10,189</h4>
+              <h4 class="card-title">{{ totalEnrollments }}</h4>
             </div>
             <div slot="footer">
-              <i class="fa fa-refresh"></i>Updated now
+              <i class="fa fa-refresh"></i>Updated
+              <span class="timeago" :datetime="now"></span>
             </div>
           </stats-card>
         </div>
@@ -50,48 +53,22 @@
       </div>
 
       <div class="row">
-        <div class="col-xl-8 col-md-6">
-          <chart-card
-            :chart-data="pieChart.data"
-            chart-type="Pie">
-            <template slot="header">
+        <div class="col">
+          <div class="card">
+            <div class="card-header">
               <h4 class="card-title">Enrollments</h4>
-              <p class="card-category">All enrollments to date</p>
-            </template>
-            <template slot="footer">
+              <p class="card-category">Monthly enrollments</p>
+            </div>
+            <div class="card-body">
+              <div id="bar-chart"></div>
+            </div>
+            <div class="card-footer">
               <div class="legend">
                 <i class="fa fa-circle text-info"></i> Individual
                 <i class="fa fa-circle text-danger"></i> Corporate
               </div>
-              <hr>
-              <div class="stats">
-                <i class="fa fa-check"></i> Data information certified
-              </div>
-            </template>
-          </chart-card>
-        </div>
-
-        <div class="col-xl-4 col-md-6">
-          <chart-card
-            :chart-data="barChart.data"
-            :chart-options="barChart.options"
-            :chart-responsive-options="barChart.responsiveOptions"
-            chart-type="Bar">
-            <template slot="header">
-              <h4 class="card-title">Enrollments</h4>
-              <p class="card-category">All enrollments to date</p>
-            </template>
-            <template slot="footer">
-              <div class="legend">
-                <i class="fa fa-circle text-info"></i> Individual
-                <i class="fa fa-circle text-danger"></i> Corporate
-              </div>
-              <hr>
-              <div class="stats">
-                <i class="fa fa-check"></i> Data information certified
-              </div>
-            </template>
-          </chart-card>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -99,123 +76,135 @@
   </div>
 </template>
 <script>
-import ChartCard from "../../UIComponents/Cards/ChartCard.vue";
-import StatsCard from "../../UIComponents/Cards/StatsCard.vue";
-import Card from "../../UIComponents/Cards/Card.vue";
-import LTable from "../../UIComponents/Table.vue";
-import Checkbox from "../../UIComponents/Inputs/Checkbox.vue";
+import timeago from "timeago.js"
+import StatsCard from "../../UIComponents/Cards/StatsCard.vue"
+import Card from "../../UIComponents/Cards/Card.vue"
+import LTable from "../../UIComponents/Table.vue"
+import Checkbox from "../../UIComponents/Inputs/Checkbox.vue"
+
+require('morris.js/morris')
 
 export default {
+  mounted() {
+    timeago().render(document.querySelectorAll(".timeago"))
+    Morris.Bar(this.options)
+  },
   components: {
-    Checkbox,
     Card,
+    Checkbox,
     LTable,
-    ChartCard,
     StatsCard
   },
+  props: ["context"],
   data() {
     return {
-      editTooltip: "Edit Task",
-      deleteTooltip: "Remove",
-      pieChart: {
-        data: {
-          labels: ["40%", "20%", "40%"],
-          series: [40, 20, 40]
-        }
-      },
-      lineChart: {
-        data: {
-          labels: [
-            "9:00AM",
-            "12:00AM",
-            "3:00PM",
-            "6:00PM",
-            "9:00PM",
-            "12:00PM",
-            "3:00AM",
-            "6:00AM"
-          ],
-          series: [
-            [287, 385, 490, 492, 554, 586, 698, 695],
-            [67, 152, 143, 240, 287, 335, 435, 437],
-            [23, 113, 67, 108, 190, 239, 307, 308]
-          ]
-        },
-        options: {
-          low: 0,
-          high: 800,
-          showArea: false,
-          height: "245px",
-          axisX: {
-            showGrid: false
-          },
-          lineSmooth: true,
-          showLine: true,
-          showPoint: true,
-          fullWidth: true,
-          chartPadding: {
-            right: 50
-          }
-        },
-        responsiveOptions: [
-          [
-            "screen and (max-width: 640px)",
-            {
-              axisX: {
-                labelInterpolationFnc(value) {
-                  return value[0];
-                }
-              }
-            }
-          ]
-        ]
-      },
-      barChart: {
-        data: {
-          labels: [
-            "Jan",
-            "Feb",
-            "Mar",
-            "Apr",
-            "Mai",
-            "Jun",
-            "Jul",
-            "Aug",
-            "Sep",
-            "Oct",
-            "Nov",
-            "Dec"
-          ],
-          series: [
-            [542, 443, 320, 780, 553, 453, 326, 434, 568, 610, 756, 895],
-            [412, 243, 280, 580, 453, 353, 300, 364, 368, 410, 636, 695]
-          ]
-        },
-        options: {
-          seriesBarDistance: 10,
-          axisX: {
-            showGrid: false
-          },
-          height: "245px"
-        },
-        responsiveOptions: [
-          [
-            "screen and (max-width: 640px)",
-            {
-              seriesBarDistance: 5,
-              axisX: {
-                labelInterpolationFnc(value) {
-                  return value[0];
-                }
-              }
-            }
-          ]
-        ]
+      now: new Date(),
+      options: {
+        element: 'bar-chart',
+        data: this.getChartData(),
+        xkey: 'month',
+        ykeys: ['individual', 'corporate'],
+        labels: ['Individual', 'Corporate'],
+        barColors: ['#17a2b8', '#dc3545'],
+        grid: true,
+        gridTextWeight: 'bold',
+        resize: true
       }
     };
+  },
+  computed: {
+    individualEnrollments() {
+      return this.context.counts.individual;
+    },
+    corporateEnrollments() {
+      return this.context.counts.corporate;
+    },
+    totalEnrollments() {
+      return this.individualEnrollments + this.corporateEnrollments;
+    }
+  },
+  methods: {
+    getChartData() {
+      let months = [
+        "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul",
+        "Aug", "Sep", "Oct", "Nov", "Dec"
+      ];
+      let data = []
+      months.map((month, index) => {
+        let monthCode = ++index
+        data.push({
+          month: this.getMonth(monthCode),
+          individual: this.getCount(monthCode, true),
+          corporate: this.getCount(monthCode)
+        })
+      })
+      // sort data such that current year items are last
+      let isCurrentYear = i => {
+        return (i.month.split(' ')[1].trim() == `${(new Date).getFullYear()}`)
+      }
+
+      let isPreviousYear = m => !isCurrentYear(m)
+      return data.filter(isPreviousYear).concat(data.filter(isCurrentYear))
+    },
+    getCount(monthCode, individual=false) {
+      let months = individual ? this.context.months.individual : this.context.months.corporate
+      let count = months.filter(m => m.month === monthCode)
+                    .reduce((acc, m) => acc + m.count, 0)
+      return count
+    },
+    getMonth(monthCode){
+      let label
+      switch(monthCode) {
+        case 1:
+          label = 'Jan'
+          break
+        case 2:
+          label = 'Feb'
+          break
+        case 3:
+          label = 'Mar'
+          break
+        case 4:
+          label = 'Apr'
+          break
+        case 5:
+          label = 'May'
+          break
+        case 6:
+          label = 'Jun'
+          break
+        case 7:
+          label = 'Jul'
+          break
+        case 8:
+          label = 'Aug'
+          break
+        case 9:
+          label = 'Sep'
+          break
+        case 10:
+          label = 'Oct'
+          break
+        case 11:
+          label = 'Nov'
+          break
+        case 12:
+          label = 'Dec'
+          break
+        default:
+         throw new Error('Invalid Month Code')
+      }
+
+      let now = new Date()
+      return (monthCode <= now.getMonth()) ?
+                `${label} ${now.getFullYear()}` :
+                `${label} ${now.getFullYear() - 1}`
+    }
   }
 };
 </script>
-<style>
 
+<style lang="sass">
+@import '~morris.js/morris';
 </style>
+

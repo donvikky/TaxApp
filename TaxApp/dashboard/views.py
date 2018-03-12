@@ -1,3 +1,4 @@
+import json
 from django.core.exceptions import ImproperlyConfigured
 from django.shortcuts import render, redirect
 from django.views.generic.edit import CreateView
@@ -11,7 +12,18 @@ from TaxApp.dashboard import forms
 
 @login_required
 def overview(request):
-    return render(request, 'dashboard/overview.html')
+    data = {
+        'counts': {
+            'individual': models.TaxPayer.objects.count(),
+            'corporate': models.CorporateTaxPayer.objects.count()
+        },
+        'months': {
+            'individual': list(models.TaxPayer.get_enrollments_per_month()),
+            'corporate': list(models.CorporateTaxPayer.get_enrollments_per_month())
+        }
+    }
+    json_data = json.dumps(data)
+    return render(request, 'dashboard/overview.html', {'json_data': json_data})
 
 @login_required
 def user_profile(request):

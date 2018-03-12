@@ -1,6 +1,4 @@
-{% extends "dashboard/dashboard.html" %}
-
-{% block page_content %}
+{% extends "dashboard/dashboard.html" %} {% block page_content %}
 <div class="content">
   <div class="container-fluid">
     <div class="row">
@@ -10,7 +8,7 @@
             <h4 class="card-title">Individual Tax Payers</h4>
             <p class="card-category"></p>
           </template>
-          
+
           <!-- content goes here -->
           <a href="{% url 'individual_create' %}" class="btn btn-sm btn-fill btn-success">Add New</a>
 
@@ -27,15 +25,17 @@
             </thead>
             <tbody>
               {% for tax_payer in tax_payers %}
-              <td>{{ tax_payer.tin }}</td>
-              <td>{{ tax_payer.full_name }}</td>
-              <td>{{ tax_payer.gender }}</td>
-              <td>{{ tax_payer.occupation }}</td>
-              <td>{{ tax_payer.employment_status }}</td>
-              <td>{{ tax_payer.nationality }}</td>
-              <td>
-                <a href="{% url 'individual_detail' tax_payer.id %}" class="btn btn-sm btn-fill btn-primary">Details</a>
-              </td>
+              <tr>
+                <td>{{ tax_payer.tin }}</td>
+                <td>{{ tax_payer.full_name }}</td>
+                <td>{{ tax_payer.gender }}</td>
+                <td>{{ tax_payer.occupation }}</td>
+                <td>{{ tax_payer.employment_status }}</td>
+                <td>{{ tax_payer.nationality }}</td>
+                <td>
+                  <a href="{% url 'individual_detail' tax_payer.id %}" class="btn btn-sm btn-fill btn-primary">Details</a>
+                </td>
+              </tr>
               {% endfor %}
             </tbody>
           </table>

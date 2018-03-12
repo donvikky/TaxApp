@@ -1,5 +1,3 @@
-{% extends "dashboard/dashboard.html" %}
-
-{% block page_content %}
-<overview></overview>
+{% extends "dashboard/dashboard.html" %} {% block page_content %}
+<overview :context="{{ json_data }}"></overview>
 {% endblock page_content %}
